@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLTS Labs — Web3 Marketing & Growth Agency</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#07070b',      /* Deep refined charcoal base */
+                        surface: '#111118',         /* Elevated grey surface */
+                        surfaceAlt: '#161622',      /* Secondary grey container tone */
+                        limeAccent: '#ccff00',
+                        violetAccent: '#7c3aed',
+                        mutedText: '#94a3b8',
+                        silverText: '#cbd5e1'
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Instrument Serif"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background: radial-gradient(circle at 15% 20%, rgba(99, 50, 180, 0.25) 0%, rgba(17, 17, 24, 0.95) 50%, #07070b 100%);
+            background-color: #07070b;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            position: relative;
+        }
+
+        #spaceCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #07070b; }
+        ::-webkit-scrollbar-thumb { background: #222230; border-radius: 3px; }
+
+        .glass-nav {
+            background: rgba(17, 17, 24, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Mobile menu slide & blur transition */
+        #mobileMenu {
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: top;
+        }
+        #mobileMenu.hidden {
+            opacity: 0;
+            transform: scaleY(0.95);
+            pointer-events: none;
+            visibility: hidden;
+        }
+        #mobileMenu:not(.hidden) {
+            opacity: 1;
+            transform: scaleY(1);
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        /* Scroll Reveal Motion */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .editorial-accent {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            color: #ccff00;
+        }
+
+        .w-stack-stage {
+            position: relative;
+            width: 100%;
+            max-width: 1500px;
+            height: 520px;
+            margin: 10px auto;
+            perspective: 2000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            touch-action: pan-y;
+        }
+
+        .w-card {
+            position: absolute;
+            width: 410px;
+            height: 480px;
+            border-radius: 32px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 35px 80px rgba(0,0,0,0.85);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease, filter 0.6s ease, border-color 0.6s ease;
+            cursor: grab;
+            background: linear-gradient(145deg, #161622, #0d0d14);
+            transform-origin: bottom center;
+            overflow: hidden;
+        }
+
+        .w-card:active { cursor: grabbing; }
+
+        .w-card[data-slot="-2"] { transform: translateX(-500px) translateY(55px) rotate(-14deg) scale(0.85); z-index: 1; opacity: 0.4; filter: blur(2px); }
+        .w-card[data-slot="-1"] { transform: translateX(-250px) translateY(-15px) rotate(-7deg) scale(0.93); z-index: 5; opacity: 0.85; filter: blur(0px); }
+        .w-card[data-slot="0"] { transform: translateX(0px) translateY(15px) rotate(0deg) scale(1); z-index: 10; opacity: 1; border-color: rgba(204, 255, 0, 0.5); box-shadow: 0 45px 100px rgba(0,0,0,0.95), 0 0 40px rgba(204, 255, 0, 0.1); filter: blur(0px); }
+        .w-card[data-slot="1"] { transform: translateX(250px) translateY(-15px) rotate(7deg) scale(0.93); z-index: 5; opacity: 0.85; filter: blur(0px); }
+        .w-card[data-slot="2"] { transform: translateX(500px) translateY(55px) rotate(14deg) scale(0.85); z-index: 1; opacity: 0.4; filter: blur(2px); }
+        .w-card[data-slot="hidden"] { transform: translateX(0px) translateY(80px) scale(0.7); z-index: 0; opacity: 0; pointer-events: none; }
+
+        .w-card .card-zoom-content {
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .w-card[data-slot="0"] .card-zoom-content {
+            opacity: 1;
+            transform: translateY(0px) scale(1);
+        }
+
+        .w-card[data-slot="-1"] .card-zoom-content,
+        .w-card[data-slot="1"] .card-zoom-content {
+            opacity: 0.6;
+            transform: translateY(10px) scale(0.97);
+        }
+
+        .w-card[data-slot="-2"] .card-zoom-content,
+        .w-card[data-slot="2"] .card-zoom-content {
+            opacity: 0.2;
+            transform: translateY(20px) scale(0.95);
+        }
+
+        @media(max-width: 1200px) {
+            .w-card { width: 360px; height: 460px; }
+            .w-card[data-slot="-2"] { transform: translateX(-210px) translateY(35px) scale(0.82); }
+            .w-card[data-slot="-1"] { transform: translateX(-105px) translateY(-10px) scale(0.9); }
+            .w-card[data-slot="1"] { transform: translateX(105px) translateY(-10px) scale(0.9); }
+            .w-card[data-slot="2"] { transform: translateX(210px) translateY(35px) scale(0.82); }
+        }
+
+        @media(max-width: 768px) {
+            .w-stack-stage { height: 440px; max-width: 100%; }
+            .w-card { width: 300px; height: 420px; padding: 24px; }
+            .w-card[data-slot="-2"], .w-card[data-slot="2"] { display: none; }
+            .w-card[data-slot="-1"] { transform: translateX(-80px) translateY(10px) rotate(-5deg) scale(0.88); opacity: 0.6; }
+            .w-card[data-slot="0"] { transform: translateX(0px) translateY(0px) rotate(0deg) scale(1); }
+            .w-card[data-slot="1"] { transform: translateX(80px) translateY(10px) rotate(5deg) scale(0.88); opacity: 0.6; }
+        }
+
+        .work-card {
+            background: linear-gradient(145deg, #13131c, #0b0b12);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+        .work-card:hover {
+            border-color: rgba(204, 255, 0, 0.3);
+            background: linear-gradient(145deg, #171724, #0e0e16);
+            transform: translateY(-2px);
+        }
+
+        .native-swipe-track {
+            display: flex;
+            gap: 1.25rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 12px;
+            scrollbar-width: thin;
+        }
+
+        .native-swipe-track > div {
+            flex-shrink: 0;
+        }
+
+        section {
+            padding-top: 4rem !important;
+            padding-bottom: 4rem !important;
+        }
+        
+        .section-alt {
+            background: rgba(17, 17, 24, 0.4);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+    <meta name="description" content="SLTS Labs is a Web3 marketing and growth agency specializing in community growth, KOL marketing, content, launches, websites and distribution.">
+
+<meta property="og:title" content="SLTS Labs — Web3 Marketing & Growth Agency">
+<meta property="og:description" content="Web3 growth campaigns built for execution, distribution and measurable results.">
+<meta property="og:image" content="og-image.png">
+<meta property="og:type" content="website">
+
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body class="selection:bg-limeAccent selection:text-black">
+
+    <canvas id="spaceCanvas"></canvas>
+
+    <a href="https://t.me/unclejsmain" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-limeAccent text-zinc-950 font-bold px-4 py-3 rounded-full shadow-lg shadow-lime-400/20 hover:bg-lime-300 hover:scale-105 transition-all duration-200">
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.25.38-.51 1.08-.78 4.22-1.84 7.04-3.05 8.46-3.64 4.03-1.68 4.87-1.97 5.42-1.98.12 0 .39.03.56.17.14.12.18.28.2.45-.02.07-.02.13-.04.2z"/>
+        </svg>
+        <span class="text-xs font-extrabold uppercase tracking-widest">Talk to SLTS</span>
+    </a>
+
+    <header class="fixed top-0 left-0 w-full z-50 py-4 px-6">
+        <nav class="glass-nav rounded-full px-6 py-3.5 flex items-center justify-between shadow-2xl max-w-7xl mx-auto">
+            <a href="#" class="flex items-center">
+                <div class="h-8 flex items-center overflow-visible">
+                    <img src="logo.png" alt="sltslabs logo" class="h-10 w-auto object-contain scale-[2.0] origin-left">
+                </div>
+            </a>
+
+            <div class="hidden md:flex items-center gap-6 text-xs tracking-widest uppercase font-semibold text-mutedText">
+                <a href="#" class="hover:text-white transition-colors">Home</a>
+                <a href="#services" class="hover:text-white transition-colors">What We Offer</a>
+                <a href="#proof-of-work" class="hover:text-white transition-colors">Proof of Work</a>
+                <a href="#start-campaign" class="hover:text-white transition-colors">State a Campaign</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#start-campaign" class="hidden sm:inline-flex items-center gap-2 text-xs uppercase tracking-widest font-extrabold bg-limeAccent hover:bg-[#b3e600] text-black px-5 py-2.5 rounded-full transition-all duration-300">
+                    <span>Start a Campaign</span>
+                    <span>→</span>
+                </a>
+                <button id="menuToggle" class="md:hidden text-white focus:outline-none p-2" aria-label="Toggle Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <div id="mobileMenu" class="hidden md:hidden glass-nav rounded-2xl mt-2 mx-6 p-6 border border-white/10 flex flex-col gap-4 text-xs tracking-widest uppercase font-semibold text-mutedText">
+            <a href="#" class="hover:text-white transition-colors mobile-link">Home</a>
+            <a href="#services" class="hover:text-white transition-colors mobile-link">What We Offer</a>
+            <a href="#proof-of-work" class="hover:text-white transition-colors mobile-link">Proof of Work</a>
+            <a href="#start-campaign" class="hover:text-white transition-colors mobile-link">State a Campaign</a>
+            <a href="#contact" class="hover:text-white transition-colors mobile-link">Contact</a>
+            <a href="#start-campaign" class="inline-flex items-center justify-center gap-2 text-xs uppercase tracking-widest font-extrabold bg-limeAccent text-black px-5 py-3 rounded-full transition-all mt-2 mobile-link">
+                <span>Start a Campaign</span>
+                <span>→</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="relative z-10 w-full overflow-hidden pt-16">
+
+        <section class="min-h-[85vh] flex items-center pt-28 pb-12 px-6 max-w-7xl mx-auto relative overflow-hidden">
+            <div class="absolute -top-32 -left-32 w-[500px] h-[500px] bg-violet-600/20 rounded-full blur-[120px] pointer-events-none z-0"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-20 w-full">
+                <div class="lg:col-span-6 flex flex-col text-left">
+                    <div class="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-surface border border-white/10 text-xs tracking-wider uppercase font-extrabold text-white shadow-xl self-start mb-6">
+                        <span class="w-2 h-2 rounded-full bg-limeAccent animate-ping"></span>
+                        <span>SLTS Labs — The Growth Standard</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-[1.08] mb-6">
+                        We execute growth campaigns that put your project in front of the <span class="editorial-accent text-6xl sm:text-7xl">right people.</span>
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-silverText max-w-xl font-normal leading-relaxed mb-8">
+                        Built in the trenches. Refined by fire. Explore our process, check our proof of work, and state your campaign requirements below.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row items-center gap-4">
+                        <a href="#start-campaign" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-limeAccent text-black font-extrabold text-xs uppercase tracking-widest hover:bg-[#b3e600] transition-all shadow-lg text-center">
+                            Start a Campaign →
+                        </a>
+                        <a href="#proof-of-work" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-surface border border-white/10 text-white font-bold text-xs uppercase tracking-widest hover:border-limeAccent/50 transition-all text-center">
+                            View Our Work
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 flex justify-center lg:justify-end relative">
+                    <div class="w-full max-w-[380px] lg:max-w-[420px] relative">
+                        <div class="absolute -top-4 right-4 bg-limeAccent text-black font-extrabold text-[10px] px-3 py-1 rounded-full uppercase tracking-widest shadow-2xl flex items-center gap-1 z-30 animate-bounce">
+                            <span>Watch</span>
+                            <span>↓</span>
+                        </div>
+
+                        <div class="work-card rounded-[38px] p-3.5 relative shadow-[0_25px_80px_rgba(0,0,0,0.9)] border border-white/15 bg-surface">
+                            <div class="w-full aspect-square rounded-[28px] border border-white/10 relative overflow-hidden bg-background flex items-center justify-center">
+                                <video src="testimonial1.mp4" controls autoplay muted loop playsinline class="w-full h-full object-cover rounded-[28px]"></video>
+                            </div>
+
+                            <div class="pt-3 px-2 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[9px] uppercase font-mono tracking-widest text-pink-400 bg-white/5 px-2 py-0.5 rounded">Verified Testimonial</span>
+                                    <h4 class="text-xs font-bold text-white mt-1">Community Growth Shoutout</h4>
+                                </div>
+                                <span class="text-[11px] text-limeAccent font-mono font-bold">100% Authentic</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="reveal-on-scroll border-y border-zinc-800 bg-zinc-950/50 py-12 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="text-xs uppercase tracking-widest text-zinc-500 text-center mb-8">The Numbers Behind The Execution</p>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div class="border-r border-zinc-800/50 last:border-none">
+                        <div class="text-3xl md:text-4xl font-extrabold text-lime-400 font-mono">50+</div>
+                        <div class="text-sm text-zinc-400 mt-1">Campaigns Executed</div>
+                    </div>
+                    <div class="border-r border-zinc-800/50 last:border-none">
+                        <div class="text-3xl md:text-4xl font-extrabold text-lime-400 font-mono">20+</div>
+                        <div class="text-sm text-zinc-400 mt-1">Projects Supported</div>
+                    </div>
+                    <div class="border-r border-zinc-800/50 last:border-none">
+                        <div class="text-3xl md:text-4xl font-extrabold text-lime-400 font-mono">100K+</div>
+                        <div class="text-sm text-zinc-400 mt-1">Community Reach</div>
+                    </div>
+                    <div>
+                        <div class="text-3xl md:text-4xl font-extrabold text-lime-400 font-mono">X+</div>
+                        <div class="text-sm text-zinc-400 mt-1">KOLs Activated</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="reveal-on-scroll py-12 px-6 max-w-7xl mx-auto relative z-20 section-alt">
+            <div class="max-w-4xl mx-auto text-center mb-8">
+                <span class="text-xs tracking-[0.3em] uppercase text-limeAccent font-bold block mb-2">What We Offer</span>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-white mb-2">Interactive Growth Arsenal</h2>
+                <p class="text-xs text-mutedText uppercase tracking-widest font-mono">Swipe horizontally or use buttons to cycle cards</p>
+            </div>
+
+            <div class="w-stack-stage" id="wStackStage">
+                
+                <div class="w-card" data-index="0" style="background: linear-gradient(145deg, #1c1829, #0f0d14);">
+                    <div class="card-zoom-content h-full flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-violetAccent bg-white/10 px-2.5 py-0.5 rounded-full">Community</span>
+                                <span class="text-limeAccent font-mono text-xs">Swipe ⇄</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-1 leading-snug">Community Ecosystem</h3>
+                            <p class="text-[11px] text-silverText mb-2.5 font-light leading-relaxed">Build an active community people actually want to be part of.</p>
+                            
+                            <ul class="space-y-1 text-[11px] text-white/90 border-t border-white/10 pt-2 grid grid-cols-2 gap-x-2">
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Telegram Growth</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Discord Mgmt</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Community Mgmt</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Moderation</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Activation</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Engagement</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> AMAs & Events</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Ambassadors</li>
+                            </ul>
+                        </div>
+                        <div class="pt-2 border-t border-white/10 flex justify-between items-center text-[10px] text-mutedText uppercase tracking-wider">
+                            <span>Retention Engine</span>
+                            <span class="text-limeAccent font-bold">1 / 7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-card" data-index="1" style="background: linear-gradient(145deg, #24161f, #120a10);">
+                    <div class="card-zoom-content h-full flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-pink-400 bg-white/10 px-2.5 py-0.5 rounded-full">Narrative</span>
+                                <span class="text-limeAccent font-mono text-xs">Swipe ⇄</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-1 leading-snug">Social & Content</h3>
+                            <p class="text-[11px] text-silverText mb-2.5 font-light leading-relaxed">Turn your project into a compelling narrative that spreads fast.</p>
+                            
+                            <ul class="space-y-1 text-[11px] text-white/90 border-t border-white/10 pt-2 grid grid-cols-2 gap-x-2">
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> X/Twitter Mgmt</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Content Strategy</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Meme Campaigns</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Threads & Posts</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Short-form Content</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Founder Brand</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Engagement Strategy</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Social Growth</li>
+                            </ul>
+                        </div>
+                        <div class="pt-2 border-t border-white/10 flex justify-between items-center text-[10px] text-mutedText uppercase tracking-wider">
+                            <span>Viral Reach</span>
+                            <span class="text-limeAccent font-bold">2 / 7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-card" data-index="2" style="background: linear-gradient(145deg, #242014, #12100a);">
+                    <div class="card-zoom-content h-full flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-amber-400 bg-white/10 px-2.5 py-0.5 rounded-full">Influencers</span>
+                                <span class="text-limeAccent font-mono text-xs">Swipe ⇄</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-1 leading-snug">KOL & Creator Marketing</h3>
+                            <p class="text-[11px] text-silverText mb-2.5 font-light leading-relaxed">Direct connection with top-tier voices and creators in the space.</p>
+                            
+                            <ul class="space-y-1 text-[11px] text-white/90 border-t border-white/10 pt-2 grid grid-cols-2 gap-x-2">
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> KOL Campaigns</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Influencer Push</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Creator Campaigns</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> KOL Sourcing</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> KOL Coordination</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> X Spaces Hosting</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Micro-KOL Push</li>
+                            </ul>
+                        </div>
+                        <div class="pt-2 border-t border-white/10 flex justify-between items-center text-[10px] text-mutedText uppercase tracking-wider">
+                            <span>High Trust Authority</span>
+                            <span class="text-limeAccent font-bold">3 / 7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-card" data-index="3" style="background: linear-gradient(145deg, #142226, #0a1114);">
+                    <div class="card-zoom-content h-full flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-cyan-400 bg-white/10 px-2.5 py-0.5 rounded-full">Expansion</span>
+                                <span class="text-limeAccent font-mono text-xs">Swipe ⇄</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-1 leading-snug">Growth & Distribution</h3>
+                            <p class="text-[11px] text-silverText mb-2.5 font-light leading-relaxed">Put your protocol in front of high-intent target eyes.</p>
+                            
+                            <ul class="space-y-1 text-[11px] text-white/90 border-t border-white/10 pt-2 grid grid-cols-2 gap-x-2">
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Targeted Outreach</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Community Campaigns</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Shill Campaigns</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Community Raids</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Awareness Push</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> User Acquisition</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Partnership Growth</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Ecosystem Scale</li>
+                            </ul>
+                        </div>
+                        <div class="pt-2 border-t border-white/10 flex justify-between items-center text-[10px] text-mutedText uppercase tracking-wider">
+                            <span>Mass Velocity</span>
+                            <span class="text-limeAccent font-bold">4 / 7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-card" data-index="4" style="background: linear-gradient(145deg, #142418, #0a120c);">
+                    <div class="card-zoom-content h-full flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-emerald-400 bg-white/10 px-2.5 py-0.5 rounded-full">Ignition</span>
+                                <span class="text-limeAccent font-mono text-xs">Swipe ⇄</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-1 leading-snug">Launch Marketing</h3>
+                            <p class="text-[11px] text-silverText mb-2.5 font-light leading-relaxed">Create explosive market momentum before, during, and after token generation.</p>
+                            
+                            <ul class="space-y-1 text-[11px] text-white/90 border-t border-white/10 pt-2 grid grid-cols-2 gap-x-2">
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Pre-Launch Strategy</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Community Building</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Waitlist Growth</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> KOL Seeding</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> TGE Campaigns</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Launch Activation</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Post-Launch Growth</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Listing Campaigns</li>
+                            </ul>
+                        </div>
+                        <div class="pt-2 border-t border-white/10 flex justify-between items-center text-[10px] text-mutedText uppercase tracking-wider">
+                            <span>Master Execution</span>
+                            <span class="text-limeAccent font-bold">5 / 7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-card" data-index="5" style="background: linear-gradient(145deg, #141c26, #0a0e14);">
+                    <div class="card-zoom-content h-full flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-blue-400 bg-white/10 px-2.5 py-0.5 rounded-full">Creative</span>
+                                <span class="text-limeAccent font-mono text-xs">Swipe ⇄</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-1 leading-snug">Web & Creative</h3>
+                            <p class="text-[11px] text-silverText mb-2.5 font-light leading-relaxed">High-converting web3 user interfaces and cutting-edge design.</p>
+                            
+                            <ul class="space-y-1 text-[11px] text-white/90 border-t border-white/10 pt-2 grid grid-cols-2 gap-x-2">
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Landing Pages</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Project Websites</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Campaign Microsites</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Web3 Dashboards</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> UI/UX Direction</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Product Interfaces</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Motion Design</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> No-Code Solutions</li>
+                            </ul>
+                        </div>
+                        <div class="pt-2 border-t border-white/10 flex justify-between items-center text-[10px] text-mutedText uppercase tracking-wider">
+                            <span>High Conversion</span>
+                            <span class="text-limeAccent font-bold">6 / 7</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-card" data-index="6" style="background: linear-gradient(145deg, #1f1426, #0f0a13);">
+                    <div class="card-zoom-content h-full flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-fuchsia-400 bg-white/10 px-2.5 py-0.5 rounded-full">Analytics</span>
+                                <span class="text-limeAccent font-mono text-xs">Swipe ⇄</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white mb-1 leading-snug">Growth Intelligence</h3>
+                            <p class="text-[11px] text-silverText mb-2.5 font-light leading-relaxed">Data driven performance tracking and attribution modeling.</p>
+                            
+                            <ul class="space-y-1 text-[11px] text-white/90 border-t border-white/10 pt-2 grid grid-cols-2 gap-x-2">
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Campaign Analytics</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Social Analytics</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Community Analytics</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> KOL Performance</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Conversion Tracking</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> User Attribution</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Growth Reporting</li>
+                                <li class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-limeAccent shrink-0"></span> Custom Dashboards</li>
+                            </ul>
+                        </div>
+                        <div class="pt-2 border-t border-white/10 flex justify-between items-center text-[10px] text-mutedText uppercase tracking-wider">
+                            <span>Deep Insights</span>
+                            <span class="text-limeAccent font-bold">7 / 7</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex items-center justify-center gap-5 mt-4">
+                <button id="prevCard" class="px-4 py-1.5 rounded-full bg-surface border border-white/10 text-xs text-mutedText hover:text-white uppercase tracking-wider transition-all cursor-pointer">← Prev</button>
+                <div id="wDots" class="flex gap-2">
+                    <span class="w-6 h-1.5 rounded-full bg-limeAccent transition-all"></span>
+                    <span class="w-2 h-1.5 rounded-full bg-white/20 transition-all"></span>
+                    <span class="w-2 h-1.5 rounded-full bg-white/20 transition-all"></span>
+                    <span class="w-2 h-1.5 rounded-full bg-white/20 transition-all"></span>
+                    <span class="w-2 h-1.5 rounded-full bg-white/20 transition-all"></span>
+                    <span class="w-2 h-1.5 rounded-full bg-white/20 transition-all"></span>
+                    <span class="w-2 h-1.5 rounded-full bg-white/20 transition-all"></span>
+                </div>
+                <button id="nextCard" class="px-4 py-1.5 rounded-full bg-surface border border-white/10 text-xs text-mutedText hover:text-white uppercase tracking-wider transition-all cursor-pointer">Next →</button>
+            </div>
+        </section>
+
+        <section id="proof-of-work" class="reveal-on-scroll py-12 px-6 max-w-7xl mx-auto border-t border-white/5 relative z-20">
+            <div class="max-w-4xl mx-auto text-center mb-10">
+                <span class="text-xs tracking-[0.3em] uppercase text-limeAccent font-bold block mb-2">Verified Track Record</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Proof of Work Galleries</h2>
+            </div>
+
+            <div class="mb-12">
+                <div class="flex justify-between items-end mb-5">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Websites by Us</h3>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex gap-2">
+                            <button class="webPrev px-3.5 py-1.5 rounded-full bg-surface border border-white/10 text-xs text-mutedText hover:text-white transition-all cursor-pointer">←</button>
+                            <button class="webNext px-3.5 py-1.5 rounded-full bg-surface border border-white/10 text-xs text-mutedText hover:text-white transition-all cursor-pointer">→</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative w-full overflow-x-auto pb-2">
+                    <div class="webTrack native-swipe-track">
+                        <div class="w-[320px] sm:w-[360px] work-card rounded-3xl p-5 flex flex-col justify-between">
+                            <div class="absolute -top-3 right-5 bg-limeAccent text-black font-extrabold text-[9px] px-3 py-1 rounded-full uppercase tracking-widest shadow-lg flex items-center gap-1 z-20 animate-bounce">
+                                <span>Start Here</span>
+                                <span>↓</span>
+                            </div>
+                            <div>
+                                <div class="w-full h-44 rounded-2xl border border-white/10 mb-5 relative overflow-hidden bg-background">
+                                    <iframe src="https://tompololagacy.github.io/Tompolocoin/index.html" class="w-[400%] h-[400%] scale-[0.25] origin-top-left pointer-events-none"></iframe>
+                                </div>
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-violetAccent bg-white/5 px-2.5 py-1 rounded-md">Meme Project</span>
+                                <h4 class="text-lg font-bold text-white mt-2 mb-1.5">TOMPOLO MEMECOIN</h4>
+                                <p class="text-xs text-silverText font-light leading-relaxed mb-4">Custom interactive webpage interface, responsive landing page, and seamless wallet integration.</p>
+                            </div>
+                            <div class="pt-3.5 border-t border-white/10 flex items-center justify-between text-xs">
+                                <span class="text-mutedText font-mono">Shipped Q1</span>
+                                <a href="https://tompololagacy.github.io/Tompolocoin/index.html" target="_blank" class="text-limeAccent font-bold hover:underline">Preview Live →</a>
+                            </div>
+                        </div>
+
+                        <div class="w-[320px] sm:w-[360px] work-card rounded-3xl p-5 flex flex-col justify-between">
+                            <div>
+                                <div class="w-full h-44 rounded-2xl border border-white/10 mb-5 relative overflow-hidden bg-background">
+                                    <iframe src="https://kellasv9-1-1.vercel.app/" class="w-[400%] h-[400%] scale-[0.25] origin-top-left pointer-events-none"></iframe>
+                                </div>
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-cyan-400 bg-white/5 px-2.5 py-1 rounded-md">Product</span>
+                                <h4 class="text-lg font-bold text-white mt-2 mb-1.5">KELLAs Fresh Soap</h4>
+                                <p class="text-xs text-silverText font-light leading-relaxed mb-4">High performance digital presence and product showcasing interface.</p>
+                            </div>
+                            <div class="pt-3.5 border-t border-white/10 flex items-center justify-between text-xs">
+                                <span class="text-mutedText font-mono">Shipped Q2</span>
+                                <a href="https://kellasv9-1-1.vercel.app/" target="_blank" class="text-limeAccent font-bold hover:underline">Preview Live →</a>
+                            </div>
+                        </div>
+
+                        <div class="w-[320px] sm:w-[360px] work-card rounded-3xl p-5 flex flex-col justify-between">
+                            <div>
+                                <div class="w-full h-44 rounded-2xl border border-white/10 mb-5 relative overflow-hidden bg-background">
+                                    <iframe src="https://www.boomtechincorporated.com/" class="w-[400%] h-[400%] scale-[0.25] origin-top-left pointer-events-none"></iframe>
+                                </div>
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-emerald-400 bg-white/5 px-2.5 py-1 rounded-md">Digital Services</span>
+                                <h4 class="text-lg font-bold text-white mt-2 mb-1.5">Boomtechnologies</h4>
+                                <p class="text-xs text-silverText font-light leading-relaxed mb-4">Innovative Design. Flawless Execution. Exceptional Results.</p>
+                            </div>
+                            <div class="pt-3.5 border-t border-white/10 flex items-center justify-between text-xs">
+                                <span class="text-mutedText font-mono">Shipped Q3</span>
+                                <a href="https://www.boomtechincorporated.com/" target="_blank" class="text-limeAccent font-bold hover:underline">Preview Live →</a>
+                            </div>
+                        </div>
+
+                        <div class="w-[320px] sm:w-[360px] work-card rounded-3xl p-5 flex flex-col justify-between">
+                            <div>
+                                <div class="w-full h-44 rounded-2xl border border-white/10 mb-5 relative overflow-hidden bg-background">
+                                    <iframe src="https://crusty-microwave.vercel.app/" class="w-[400%] h-[400%] scale-[0.25] origin-top-left pointer-events-none"></iframe>
+                                </div>
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-limeAccent bg-white/5 px-2.5 py-1 rounded-md">Web3 Protocol</span>
+                                <h4 class="text-lg font-bold text-white mt-2 mb-1.5">Crusty Microwave</h4>
+                                <p class="text-xs text-silverText font-light leading-relaxed mb-4">Custom landing page and interactive platform development for high performance web3 growth.</p>
+                            </div>
+                            <div class="pt-3.5 border-t border-white/10 flex items-center justify-between text-xs">
+                                <span class="text-mutedText font-mono">Shipped Live</span>
+                                <a href="https://crusty-microwave.vercel.app/" target="_blank" class="text-limeAccent font-bold hover:underline">Preview Live →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <div class="flex justify-between items-end mb-5">
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Project Success Metrics</h3>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="flex gap-2">
+                            <button class="screenshotPrev px-3.5 py-1.5 rounded-full bg-surface border border-white/10 text-xs text-mutedText hover:text-white transition-all cursor-pointer">←</button>
+                            <button class="screenshotNext px-3.5 py-1.5 rounded-full bg-surface border border-white/10 text-xs text-mutedText hover:text-white transition-all cursor-pointer">→</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative w-full overflow-x-auto pb-2">
+                    <div class="screenshotTrack native-swipe-track">
+                        <div class="w-[320px] sm:w-[360px] work-card rounded-3xl p-5 flex flex-col justify-between">
+                            <div>
+                                <div class="w-full h-44 rounded-2xl border border-white/10 mb-5 relative overflow-hidden bg-background flex items-center justify-center p-2">
+                                    <img src="IMG_20260904_005137_107.jpg" alt="Payment Discussion Proof" class="w-full h-full object-cover rounded-xl">
+                                </div>
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-purple-400 bg-white/5 px-2.5 py-1 rounded-md">Payment & Strategy</span>
+                                <h4 class="text-lg font-bold text-white mt-2 mb-1.5">Long-Term Partnership</h4>
+                                <p class="text-xs text-silverText font-light leading-relaxed mb-4">Wallet dispatch and strategic alignment discussions for ongoing high-tier advertising.</p>
+                            </div>
+                            <div class="pt-3.5 border-t border-white/10 flex items-center justify-between text-xs">
+                                <span class="text-mutedText font-mono">Payment Secured</span>
+                                <span class="text-limeAccent font-bold">Verified Proof</span>
+                            </div>
+                        </div>
+
+                        <div class="w-[320px] sm:w-[360px] work-card rounded-3xl p-5 flex flex-col justify-between">
+                            <div>
+                                <div class="w-full h-44 rounded-2xl border border-white/10 mb-5 relative overflow-hidden bg-background flex items-center justify-center p-2">
+                                    <img src="IMG_20260904_005121_980.jpg" alt="Twitter Thread Proof" class="w-full h-full object-cover rounded-xl">
+                                </div>
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-cyan-400 bg-white/5 px-2.5 py-1 rounded-md">X / Community</span>
+                                <h4 class="text-lg font-bold text-white mt-2 mb-1.5">Trench Appreciation Threads</h4>
+                                <p class="text-xs text-silverText font-light leading-relaxed mb-4">Public testimonials from web3 founders thanking unclejayy for turning projects around from the rubble.</p>
+                            </div>
+                            <div class="pt-3.5 border-t border-white/10 flex items-center justify-between text-xs">
+                                <span class="text-mutedText font-mono">Public Record</span>
+                                <span class="text-limeAccent font-bold">Verified Proof</span>
+                            </div>
+                        </div>
+
+                        <div class="w-[320px] sm:w-[360px] work-card rounded-3xl p-5 flex flex-col justify-between">
+                            <div>
+                                <div class="w-full h-44 rounded-2xl border border-white/10 mb-5 relative overflow-hidden bg-background flex items-center justify-center p-2">
+                                    <img src="Purple and Black Simple Business Partnership Announcement Instagram Post_20251130_175032_0000.png" alt="Topwallet Partnership" class="w-full h-full object-cover rounded-xl">
+                                </div>
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-violetAccent bg-white/5 px-2.5 py-1 rounded-md">Partnership</span>
+                                <h4 class="text-lg font-bold text-white mt-2 mb-1.5">TopWallet Collaboration</h4>
+                                <p class="text-xs text-silverText font-light leading-relaxed mb-4">Official partnership announcement featuring cross-chain payment integration and growth campaigns.</p>
+                            </div>
+                            <div class="pt-3.5 border-t border-white/10 flex items-center justify-between text-xs">
+                                <span class="text-mutedText font-mono">Partnership Shipped</span>
+                                <span class="text-limeAccent font-bold">Verified Proof</span>
+                            </div>
+                        </div>
+
+                        <div class="w-[320px] sm:w-[360px] work-card rounded-3xl p-5 flex flex-col justify-between">
+                            <div>
+                                <div class="w-full h-44 rounded-2xl border border-white/10 mb-5 relative overflow-hidden bg-background flex items-center justify-center p-2">
+                                    <img src="Blue and Orange Geometric Music Talk Podcast Cover_20260328_194248_0000.png" alt="Crypto Naira Podcast" class="w-full h-full object-cover rounded-xl">
+                                </div>
+                                <span class="text-[10px] uppercase font-mono tracking-widest text-emerald-400 bg-white/5 px-2.5 py-1 rounded-md">Media & Podcast</span>
+                                <h4 class="text-lg font-bold text-white mt-2 mb-1.5">Crypto Naira Podcast</h4>
+                                <p class="text-xs text-silverText font-light leading-relaxed mb-4">Co-hosting feature discussing Topwallet integration, global payment accessibility, and crypto adoption.</p>
+                            </div>
+                            <div class="pt-3.5 border-t border-white/10 flex items-center justify-between text-xs">
+                                <span class="text-mutedText font-mono">Live Broadcast</span>
+                                <span class="text-limeAccent font-bold">Verified Proof</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+       <div class="reveal-on-scroll partners-section section-alt">
+          <div class="partners-header">
+            <h3>TRUSTED BY BUILDERS & PROTOCOLS</h3>
+          </div>
+          
+          <div class="partner-ticker-container">
+            <div class="ticker-track">
+              <div class="ticker-item"><img src="logo-D9njKK59.png" alt="Partner Logo"></div>
+              <div class="ticker-item"><img src="YS2y4xAR.jpg" alt="Partner Logo"></div>
+              <div class="ticker-item"><img src="HRKelu7XMAAtfiM.jpg" alt="Partner Logo"></div>
+              <div class="ticker-item"><img src="2mne98PU.jpg" alt="Partner Logo"></div>
+              
+              <div class="ticker-item"><img src="logo-D9njKK59.png" alt="Partner Logo"></div>
+              <div class="ticker-item"><img src="YS2y4xAR.jpg" alt="Partner Logo"></div>
+              <div class="ticker-item"><img src="HRKelu7XMAAtfiM.jpg" alt="Partner Logo"></div>
+              <div class="ticker-item"><img src="2mne98PU.jpg" alt="Partner Logo"></div>
+            </div>
+          </div>
+       </div>
+
+<style>
+.partner-ticker-container {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  background: transparent;
+  padding: 20px 0;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.partners-section {
+  padding: 40px 0;
+  width: 100%;
+}
+
+.partners-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.partners-header h3 {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #cbd5e1;
+  text-transform: uppercase;
+}
+
+.ticker-track {
+  display: flex;
+  gap: 30px;
+  width: max-content;
+  animation: scrollHorizontal 20s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  width: 160px;
+  height: 80px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #13131c;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.ticker-item:hover {
+  border-color: #ccff00;
+}
+
+.ticker-item img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+@keyframes scrollHorizontal {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+</style>
+
+<section id="why-partner" class="reveal-on-scroll py-16 px-6 max-w-7xl mx-auto border-t border-white/5 relative z-20">
+    <div class="max-w-4xl mx-auto text-center mb-12">
+        <span class="text-xs tracking-[0.3em] uppercase text-limeAccent font-bold block mb-2">Value Proposition</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Why Partner with sltslabs?</h2>
+        <p class="text-sm text-silverText max-w-xl mx-auto font-light leading-relaxed">
+            We deliver top-tier execution, combining technical mastery with an unwavering focus on your growth.
+        </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
+        
+        <div class="work-card rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between group border border-white/5 hover:border-limeAccent/30 transition-all">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-limeAccent/5 rounded-full blur-2xl group-hover:bg-limeAccent/10 transition-colors"></div>
+            <div class="relative z-10">
+                <span class="text-xs font-mono text-limeAccent font-bold mb-3 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-limeAccent animate-pulse"></span>
+                    <span>Verified</span>
+                </span>
+                <h3 class="text-lg font-bold text-white mb-2">Custom Solutions</h3>
+                <p class="text-xs text-silverText font-light leading-relaxed">
+                    Every project is designed with your specific goals in mind.
+                </p>
+            </div>
+        </div>
+
+        <div class="work-card rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between group border border-white/5 hover:border-limeAccent/30 transition-all">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-limeAccent/5 rounded-full blur-2xl group-hover:bg-limeAccent/10 transition-colors"></div>
+            <div class="relative z-10">
+                <span class="text-xs font-mono text-limeAccent font-bold mb-3 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-limeAccent animate-pulse"></span>
+                    <span>Verified</span>
+                </span>
+                <h3 class="text-lg font-bold text-white mb-2">Experienced Team</h3>
+                <p class="text-xs text-silverText font-light leading-relaxed">
+                    Our skilled professionals bring creativity and technical expertise to every engagement.
+                </p>
+            </div>
+        </div>
+
+        <div class="work-card rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between group border border-white/5 hover:border-limeAccent/30 transition-all">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-limeAccent/5 rounded-full blur-2xl group-hover:bg-limeAccent/10 transition-colors"></div>
+            <div class="relative z-10">
+                <span class="text-xs font-mono text-limeAccent font-bold mb-3 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-limeAccent animate-pulse"></span>
+                    <span>Verified</span>
+                </span>
+                <h3 class="text-lg font-bold text-white mb-2">Proven Success</h3>
+                <p class="text-xs text-silverText font-light leading-relaxed">
+                    Trusted by global brands to deliver measurable impact.
+                </p>
+            </div>
+        </div>
+
+        <div class="work-card rounded-3xl p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between group border border-white/5 hover:border-limeAccent/30 transition-all">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-limeAccent/5 rounded-full blur-2xl group-hover:bg-limeAccent/10 transition-colors"></div>
+            <div class="relative z-10">
+                <span class="text-xs font-mono text-limeAccent font-bold mb-3 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-limeAccent animate-pulse"></span>
+                    <span>Verified</span>
+                </span>
+                <h3 class="text-lg font-bold text-white mb-2">Commitment to Excellence</h3>
+                <p class="text-xs text-silverText font-light leading-relaxed">
+                    On-time delivery and meticulous attention to detail are our standards.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+       <section id="start-campaign" class="reveal-on-scroll py-12 px-6 max-w-4xl mx-auto border-t border-white/5 relative z-20">
+            <div class="text-center mb-10">
+                <span class="text-xs tracking-[0.3em] uppercase text-limeAccent font-bold block mb-2">Campaign Intake</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">State Your Campaign</h2>
+                <p class="text-sm text-silverText max-w-xl mx-auto font-light leading-relaxed">
+                    Tell us what your project needs, your preferred campaign style, and your target budget. We'll formulate a winning strategy.
+                </p>
+            </div>
+
+            <div class="bg-[#111118] border border-white/10 rounded-3xl p-6 sm:p-10 relative shadow-2xl">
+                <form id="campaignForm" class="space-y-6" onsubmit="submitCampaign(event)">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase font-mono tracking-wider text-slate-300 mb-2">Project Name / Handle</label>
+                            <input type="text" id="projectName" required placeholder="e.g. TompoloCoin / @project" class="w-full bg-[#161622] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-limeAccent focus:bg-[#1b1b28] focus:outline-none transition-colors">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase font-mono tracking-wider text-slate-300 mb-2">Your Telegram / Contact Handle</label>
+                            <input type="text" id="contactHandle" required placeholder="e.g. @username" class="w-full bg-[#161622] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-limeAccent focus:bg-[#1b1b28] focus:outline-none transition-colors">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase font-mono tracking-wider text-slate-300 mb-2">Select Campaign Type(s)</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center gap-3 bg-[#161622] border border-white/10 rounded-xl p-3 cursor-pointer hover:border-limeAccent/60 hover:bg-[#1b1b28] transition-colors">
+                                <input type="checkbox" name="campaignType" value="Community Management" class="accent-[#ccff00] w-4 h-4">
+                                <span class="text-xs text-slate-200 font-medium">Community Growth / CMs</span>
+                            </label>
+                            <label class="flex items-center gap-3 bg-[#161622] border border-white/10 rounded-xl p-3 cursor-pointer hover:border-limeAccent/60 hover:bg-[#1b1b28] transition-colors">
+                                <input type="checkbox" name="campaignType" value="Social & Content" class="accent-[#ccff00] w-4 h-4">
+                                <span class="text-xs text-slate-200 font-medium">X/Twitter & Content</span>
+                            </label>
+                            <label class="flex items-center gap-3 bg-[#161622] border border-white/10 rounded-xl p-3 cursor-pointer hover:border-limeAccent/60 hover:bg-[#1b1b28] transition-colors">
+                                <input type="checkbox" name="campaignType" value="KOL & Creator Marketing" class="accent-[#ccff00] w-4 h-4">
+                                <span class="text-xs text-slate-200 font-medium">KOL & Creator Marketing</span>
+                            </label>
+                            <label class="flex items-center gap-3 bg-[#161622] border border-white/10 rounded-xl p-3 cursor-pointer hover:border-limeAccent/60 hover:bg-[#1b1b28] transition-colors">
+                                <input type="checkbox" name="campaignType" value="Shill & Raids" class="accent-[#ccff00] w-4 h-4">
+                                <span class="text-xs text-slate-200 font-medium">Shill & Raids</span>
+                            </label>
+                            <label class="flex items-center gap-3 bg-[#161622] border border-white/10 rounded-xl p-3 cursor-pointer hover:border-limeAccent/60 hover:bg-[#1b1b28] transition-colors">
+                                <input type="checkbox" name="campaignType" value="Launch Marketing" class="accent-[#ccff00] w-4 h-4">
+                                <span class="text-xs text-slate-200 font-medium">Launch Marketing</span>
+                            </label>
+                            <label class="flex items-center gap-3 bg-[#161622] border border-white/10 rounded-xl p-3 cursor-pointer hover:border-limeAccent/60 hover:bg-[#1b1b28] transition-colors">
+                                <input type="checkbox" name="campaignType" value="Website Development" class="accent-[#ccff00] w-4 h-4">
+                                <span class="text-xs text-slate-200 font-medium">Website / UI Design</span>
+                            </label>
+                            <label class="flex items-center gap-3 bg-[#161622] border border-white/10 rounded-xl p-3 cursor-pointer hover:border-limeAccent/60 hover:bg-[#1b1b28] transition-colors">
+                                <input type="checkbox" name="campaignType" value="Growth Intelligence" class="accent-[#ccff00] w-4 h-4">
+                                <span class="text-xs text-slate-200 font-medium">Growth Intelligence / Analytics</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs uppercase font-mono tracking-wider text-slate-300 mb-2">Estimated Budget Range</label>
+                            <select id="budgetRange" class="w-full bg-[#161622] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-limeAccent focus:bg-[#1b1b28] focus:outline-none transition-colors">
+                                <option value="$100 - $500" class="bg-[#111118]">$100 - $500</option>
+                                <option value="$500 - $1,000" class="bg-[#111118]">$500 - $1,000</option>
+                                <option value="$1,000 - $3,000" class="bg-[#111118]">$1,000 - $3,000</option>
+                                <option value="$3,000 - $5,000" class="bg-[#111118]">$3,000 - $5,000</option>
+                                <option value="$5,000 - $10,000" class="bg-[#111118]">$5,000 - $10,000</option>
+                                <option value="$10,000+" class="bg-[#111118]">$10,000+ (Enterprise)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase font-mono tracking-wider text-slate-300 mb-2">Target Timeline</label>
+                            <select id="timeline" class="w-full bg-[#161622] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-limeAccent focus:bg-[#1b1b28] focus:outline-none transition-colors">
+                                <option value="Immediate / Urgent" class="bg-[#111118]">Immediate / Urgent</option>
+                                <option value="Within 1 Week" class="bg-[#111118]">Within 1 Week</option>
+                                <option value="Within 2 Weeks" class="bg-[#111118]">Within 2 Weeks</option>
+                                <option value="Next Month" class="bg-[#111118]">Next Month</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs uppercase font-mono tracking-wider text-slate-300 mb-2">Campaign Goals & Details</label>
+                        <textarea id="campaignDetails" rows="4" required placeholder="Describe what you want to achieve, your project status, and any specific deliverables required..." class="w-full bg-[#161622] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:border-limeAccent focus:bg-[#1b1b28] focus:outline-none transition-colors"></textarea>
+                    </div>
+
+                    <div class="text-center pt-2">
+                        <button type="submit" class="w-full sm:w-auto px-8 py-4 rounded-full bg-limeAccent text-black font-extrabold text-xs uppercase tracking-widest hover:bg-[#b3e600] transition-all shadow-xl">
+                            Submit Campaign to Telegram Directly →
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+<section id="team" class="reveal-on-scroll py-12 px-6 max-w-7xl mx-auto border-t border-white/5 relative z-20 section-alt">
+    <div class="max-w-4xl mx-auto text-center mb-10">
+        <span class="text-xs tracking-[0.3em] uppercase text-neutral-400 font-bold block mb-2">Leadership & Core</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-2">Meet the Team</h2>
+        <p class="text-sm text-silverText max-w-xl mx-auto font-light leading-relaxed">
+            The visionaries driving execution and growth standards at SLTS Labs. Swipe or scroll sideways to explore.
+        </p>
+    </div>
+
+    <div class="max-w-6xl mx-auto overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 pt-2 px-2">
+        <div class="flex gap-6 w-max mx-auto">
+            
+            <div class="work-card rounded-2xl p-6 sm:p-8 relative overflow-hidden w-[85vw] max-w-[600px] flex-shrink-0 snap-center border border-white/10 bg-surface">
+                <div class="flex flex-col sm:flex-row gap-6 items-center relative z-10">
+                    <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl border border-white/10 overflow-hidden flex-shrink-0 bg-background">
+                        <img src="Founder.png" alt="Sr Jayy" class="w-full h-full object-cover grayscale">
+                    </div>
+
+                    <div class="flex flex-col flex-grow text-center sm:text-left">
+                        <span class="text-xs uppercase font-mono tracking-widest text-neutral-400 mb-1">Founder / Team Lead</span>
+                        <h3 class="text-xl font-bold text-white mb-2">Sr Jayy</h3>
+                        
+                        <p class="text-xs text-silverText font-light leading-relaxed mb-4">
+                            Its all about growth.. still in the trenches but we D.F.Q... if you are building, let's work
+                        </p>
+
+                        <div class="flex items-center justify-center sm:justify-start gap-3">
+                            <a href="https://x.com/Unclejayy01" target="_blank" title="X (Twitter)" class="w-8 h-8 rounded-xl bg-background border border-white/10 hover:border-neutral-400 text-white hover:text-neutral-300 transition-all flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </a>
+                            <a href="https://t.me/unclejsmain" target="_blank" title="Telegram" class="w-8 h-8 rounded-xl bg-background border border-white/10 hover:border-neutral-400 text-white hover:text-neutral-300 transition-all flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.627-.168.9-.5 1.201-.82 1.23-.697.064-1.228-.461-1.901-.903-1.056-.693-1.653-1.124-2.678-1.8-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.141.119.098.152.228.167.32.016.101.033.329.019.516z"/></svg>
+                            </a>
+                            <a href="https://www.linkedin.com/in/uncle-jayy-b62724419" target="_blank" title="LinkedIn" class="w-8 h-8 rounded-xl bg-background border border-white/10 hover:border-neutral-400 text-white hover:text-neutral-300 transition-all flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            </a>
+                            <a href="mailto:Unclejayyexe@gmail.com" title="Direct Email" class="w-8 h-8 rounded-xl bg-background border border-white/10 hover:border-neutral-400 text-white hover:text-neutral-300 transition-all flex items-center justify-center">
+                                <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.818l10 8.109 10-8.109v11.818h-20z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card rounded-2xl p-6 sm:p-8 relative overflow-hidden w-[85vw] max-w-[600px] flex-shrink-0 snap-center border border-white/10 bg-surface">
+                <div class="flex flex-col sm:flex-row gap-6 items-center relative z-10">
+                    <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl border border-white/10 overflow-hidden flex-shrink-0 bg-background flex items-center justify-center">
+                        <span class="text-[10px] font-mono text-neutral-400 uppercase">Placeholder</span>
+                    </div>
+                    <div class="flex flex-col flex-grow text-center sm:text-left">
+                        <span class="text-xs uppercase font-mono tracking-widest text-neutral-400 mb-1">Core Developer / Ops</span>
+                        <h3 class="text-xl font-bold text-white mb-2">[Team Member 2]</h3>
+                        <p class="text-xs text-silverText font-light leading-relaxed mb-4">
+                            Short bio or quick quote about their role, technical expertise, and building ethos at SLTS Labs.
+                        </p>
+                        <div class="flex items-center justify-center sm:justify-start gap-3">
+                            <span class="text-xs font-mono text-neutral-500">[Social Links Here]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card rounded-2xl p-6 sm:p-8 relative overflow-hidden w-[85vw] max-w-[600px] flex-shrink-0 snap-center border border-white/10 bg-surface">
+                <div class="flex flex-col sm:flex-row gap-6 items-center relative z-10">
+                    <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl border border-white/10 overflow-hidden flex-shrink-0 bg-background flex items-center justify-center">
+                        <span class="text-[10px] font-mono text-neutral-400 uppercase">Placeholder</span>
+                    </div>
+                    <div class="flex flex-col flex-grow text-center sm:text-left">
+                        <span class="text-xs uppercase font-mono tracking-widest text-neutral-400 mb-1">Growth / Strategy</span>
+                        <h3 class="text-xl font-bold text-white mb-2">[Team Member 3]</h3>
+                        <p class="text-xs text-silverText font-light leading-relaxed mb-4">
+                            Short bio or quick quote about their role, technical expertise, and building ethos at SLTS Labs.
+                        </p>
+                        <div class="flex items-center justify-center sm:justify-start gap-3">
+                            <span class="text-xs font-mono text-neutral-500">[Social Links Here]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-card rounded-2xl p-6 sm:p-8 relative overflow-hidden w-[85vw] max-w-[600px] flex-shrink-0 snap-center border border-white/10 bg-surface">
+                <div class="flex flex-col sm:flex-row gap-6 items-center relative z-10">
+                    <div class="w-32 h-32 sm:w-36 sm:h-36 rounded-2xl border border-white/10 overflow-hidden flex-shrink-0 bg-background flex items-center justify-center">
+                        <span class="text-[10px] font-mono text-neutral-400 uppercase">Placeholder</span>
+                    </div>
+                    <div class="flex flex-col flex-grow text-center sm:text-left">
+                        <span class="text-xs uppercase font-mono tracking-widest text-neutral-400 mb-1">Community / Marketing</span>
+                        <h3 class="text-xl font-bold text-white mb-2">[Team Member 4]</h3>
+                        <p class="text-xs text-silverText font-light leading-relaxed mb-4">
+                            Short bio or quick quote about their role, technical expertise, and building ethos at SLTS Labs.
+                        </p>
+                        <div class="flex items-center justify-center sm:justify-start gap-3">
+                            <span class="text-xs font-mono text-neutral-500">[Social Links Here]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="reveal-on-scroll py-16 px-6 max-w-7xl mx-auto border-t border-white/5 relative z-20">
+    <div class="max-w-3xl mx-auto text-center mb-10">
+        <span class="text-xs tracking-[0.3em] uppercase text-limeAccent font-bold block mb-2">Direct Reach</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Contact SLTS Labs</h2>
+        <p class="text-sm text-silverText font-light leading-relaxed">
+            Have a campaign in mind? Reach out directly via our secure communication channels.
+        </p>
+    </div>
+
+    <div class="max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a href="https://t.me/unclejsmain" target="_blank" class="work-card rounded-2xl p-5 flex items-center gap-4 group">
+            <div class="w-10 h-10 rounded-xl bg-background border border-white/10 flex items-center justify-center text-limeAccent group-hover:border-limeAccent transition-colors">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.25.38-.51 1.08-.78 4.22-1.84 7.04-3.05 8.46-3.64 4.03-1.68 4.87-1.97 5.42-1.98.12 0 .39.03.56.17.14.12.18.28.2.45-.02.07-.02.13-.04.2z"/></svg>
+            </div>
+            <div>
+                <span class="text-[10px] uppercase font-mono tracking-widest text-mutedText block">Chat on Telegram</span>
+                <span class="text-sm font-bold text-white">@unclejsmain</span>
+            </div>
+        </a>
+
+        <a href="https://x.com/Unclejayy01" target="_blank" class="work-card rounded-2xl p-5 flex items-center gap-4 group">
+            <div class="w-10 h-10 rounded-xl bg-background border border-white/10 flex items-center justify-center text-limeAccent group-hover:border-limeAccent transition-colors">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </div>
+            <div>
+                <span class="text-[10px] uppercase font-mono tracking-widest text-mutedText block">Follow on X</span>
+                <span class="text-sm font-bold text-white">@Unclejayy01</span>
+            </div>
+        </a>
+
+        <a href="mailto:Unclejayyexe@gmail.com" class="work-card rounded-2xl p-5 flex items-center gap-4 group">
+            <div class="w-10 h-10 rounded-xl bg-background border border-white/10 flex items-center justify-center text-limeAccent group-hover:border-limeAccent transition-colors">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.818l10 8.109 10-8.109v11.818h-20z"/></svg>
+            </div>
+            <div>
+                <span class="text-[10px] uppercase font-mono tracking-widest text-mutedText block">Direct Email</span>
+                <span class="text-sm font-bold text-white">Unclejayyexe@gmail.com</span>
+            </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/uncle-jayy-b62724419" target="_blank" class="work-card rounded-2xl p-5 flex items-center gap-4 group">
+            <div class="w-10 h-10 rounded-xl bg-background border border-white/10 flex items-center justify-center text-limeAccent group-hover:border-limeAccent transition-colors">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </div>
+            <div>
+                <span class="text-[10px] uppercase font-mono tracking-widest text-mutedText block">LinkedIn</span>
+                <span class="text-sm font-bold text-white">Uncle Jayy</span>
+            </div>
+        </a>
+    </div>
+</section>
+
+<style>
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
+        <footer class="py-8 px-6 md:px-16 max-w-7xl mx-auto border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-mutedText relative z-20">
+            <div class="flex items-center gap-3 mb-3 sm:mb-0 font-semibold text-white">
+                <span class="w-2 h-2 rounded-full bg-limeAccent"></span>
+                <span>SLTS Labs — Web3 Marketing Agency © 2026</span>
+            </div>
+            <div class="flex items-center gap-6 uppercase tracking-wider font-medium">
+                <a href="#" class="hover:text-white transition-colors">Home</a>
+                <a href="#services" class="hover:text-white transition-colors">What We Offer</a>
+                <a href="#proof-of-work" class="hover:text-white transition-colors">Proof of Work</a>
+                <a href="#start-campaign" class="hover:text-white transition-colors">State a Campaign</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        const canvas = document.getElementById('spaceCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width, height;
+        let stars = [];
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            
+            stars = [];
+            const numStars = Math.floor((width * height) / 9000);
+            for (let i = 0; i < numStars; i++) {
+                stars.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 1.5,
+                    alpha: Math.random(),
+                    speed: Math.random() * 0.005 + 0.002
+                });
+            }
+        }
+
+        function animateStars() {
+            ctx.clearRect(0, 0, width, height);
+            stars.forEach(star => {
+                star.alpha += star.speed;
+                if (star.alpha > 1 || star.alpha < 0.2) star.speed = -star.speed;
+                ctx.fillStyle = `rgba(255, 255, 255, ${Math.abs(star.alpha)})`;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animateStars);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        animateStars();
+    </script>
+
+    <script>
+        // Scroll Reveal Observer
+        document.addEventListener("DOMContentLoaded", function () {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const targetElements = document.querySelectorAll('.reveal-on-scroll');
+            targetElements.forEach(el => observer.observe(el));
+        });
+
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        function submitCampaign(e) {
+            e.preventDefault();
+            const projectName = document.getElementById('projectName').value;
+            const contactHandle = document.getElementById('contactHandle').value;
+            const budgetRange = document.getElementById('budgetRange').value;
+            const timeline = document.getElementById('timeline').value;
+            const campaignDetails = document.getElementById('campaignDetails').value;
+            
+            const selectedTypes = Array.from(document.querySelectorAll('input[name="campaignType"]:checked'))
+                .map(cb => cb.value)
+                .join(', ') || 'Not specified';
+
+            const message = encodeURIComponent(
+                `🚀 *NEW CAMPAIGN INTAKE — SLTS LABS*\n\n` +
+                `*Project:* ${projectName}\n` +
+                `*Contact:* ${contactHandle}\n` +
+                `*Types:* ${selectedTypes}\n` +
+                `*Budget:* ${budgetRange}\n` +
+                `*Timeline:* ${timeline}\n\n` +
+                `*Details:* \n${campaignDetails}`
+            );
+
+            window.open(`https://t.me/unclejsmain?text=${message}`, '_blank');
+        }
+
+        const cards = document.querySelectorAll('.w-card');
+        const totalCards = cards.length;
+        let currentIndex = 0;
+        const dotsContainer = document.getElementById('wDots');
+        const dots = dotsContainer.querySelectorAll('span');
+        const wStackStage = document.getElementById('wStackStage');
+
+        function updateWStack(newIndex) {
+            currentIndex = (newIndex + totalCards) % totalCards;
+            
+            cards.forEach((card, i) => {
+                let diff = i - currentIndex;
+                if (diff > 3) diff -= totalCards;
+                if (diff < -3) diff += totalCards;
+                
+                if (diff >= -2 && diff <= 2) {
+                    card.setAttribute('data-slot', diff);
+                } else {
+                    card.setAttribute('data-slot', 'hidden');
+                }
+            });
+
+            dots.forEach((dot, idx) => {
+                dot.style.width = idx === currentIndex ? '24px' : '8px';
+                dot.style.backgroundColor = idx === currentIndex ? '#ccff00' : 'rgba(255, 255, 255, 0.2)';
+            });
+        }
+
+        document.getElementById('nextCard').addEventListener('click', () => updateWStack(currentIndex + 1));
+        document.getElementById('prevCard').addEventListener('click', () => updateWStack(currentIndex - 1));
+
+        let startX = 0;
+        let isDragging = false;
+
+        wStackStage.addEventListener('pointerdown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+            wStackStage.setPointerCapture(e.pointerId);
+        });
+
+        wStackStage.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            const currentX = e.clientX;
+            const diffX = currentX - startX;
+
+            if (Math.abs(diffX) > 40) {
+                if (diffX > 0) {
+                    updateWStack(currentIndex - 1);
+                } else {
+                    updateWStack(currentIndex + 1);
+                }
+                isDragging = false;
+            }
+        });
+
+        wStackStage.addEventListener('pointerup', () => { isDragging = false; });
+        wStackStage.addEventListener('pointercancel', () => { isDragging = false; });
+
+        function setupNativeCarousel(trackSelector, prevBtnSelector, nextBtnSelector) {
+            const track = document.querySelector(trackSelector);
+            if (!track) return;
+            const prevBtn = document.querySelector(prevBtnSelector);
+            const nextBtn = document.querySelector(nextBtnSelector);
+
+            function getScrollAmount() {
+                const firstChild = track.firstElementChild;
+                return firstChild ? firstChild.getBoundingClientRect().width + 20 : 340;
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+                });
+            }
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    track.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+                });
+            }
+        }
+
+        setupNativeCarousel('.webTrack', '.webPrev', '.webNext');
+        setupNativeCarousel('.screenshotTrack', '.screenshotPrev', '.screenshotNext');
+        updateWStack(0);
+    </script>
+</body>
+</html>
