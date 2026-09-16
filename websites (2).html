@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>SLTS Labs — Web3 Marketing &amp; Growth Agency</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#07070b',
+                        surface: '#111118',
+                        surfaceAlt: '#161622',
+                        limeAccent: '#ccff00',
+                        violetAccent: '#7c3aed',
+                        mutedText: '#94a3b8',
+                        silverText: '#cbd5e1'
+                    },
+
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Instrument Serif"', 'serif']
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+
+        /* =========================================
+           GLOBAL FOUNDATION
+        ========================================= */
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            min-width: 0;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+    
+
+
+        body {
+            width: 100%;
+            min-width: 0;
+            min-height: 100vh;
+            margin: 0;
+
+            background: radial-gradient(
+        circle at 15% 20%, 
+        rgba(80, 40, 155, 0.22) 0%, 
+        rgba(60, 30, 120, 0.15) 55%, 
+        rgba(17, 17, 24, 0.95) 85%, 
+        #07070b 100%
+    );
+    background-color: #07070b;
+
+            color: #f8fafc;
+
+            font-family: 'Plus Jakarta Sans', sans-serif;
+
+            overflow-x: hidden;
+            position: relative;
+
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+
+            text-rendering: optimizeLegibility;
+
+            padding-left: env(safe-area-inset-left);
+            padding-right: env(safe-area-inset-right);
+        }
+
+        img,
+        video,
+        canvas,
+        iframe {
+            max-width: 100%;
+        }
+
+        img,
+        video {
+            display: block;
+        }
+
+        iframe {
+            border: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input,
+        textarea,
+        select {
+            font: inherit;
+        }
+
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        /* =========================================
+           SCROLLBAR
+        ========================================= */
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #07070b;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #222230;
+            border-radius: 999px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #333344;
+        }
+
+
+        /* =========================================
+           TEXT SELECTION
+        ========================================= */
+
+        ::selection {
+            background: #ccff00;
+            color: #000;
+        }
+
+
+        /* =========================================
+           MOVING STAR / PARTICLE BACKGROUND
+        ========================================= */
+
+        #spaceCanvas {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100vw;
+            height: 100vh;
+
+            max-width: none;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        /* =========================================
+           MAIN CONTENT
+        ========================================= */
+
+        main {
+            position: relative;
+
+            z-index: 10;
+
+            width: 100%;
+            min-width: 0;
+
+            overflow-x: clip;
+        }
+
+
+        /* =========================================
+           CONTAINER
+        ========================================= */
+
+        .site-container {
+            width: calc(100% - clamp(1.25rem, 3vw, 4rem));
+            max-width: none;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        /* =========================================
+           SECTIONS
+        ========================================= */
+
+        section {
+            width: 100%;
+            min-width: 0;
+
+            padding-top: 2.75rem !important;
+            padding-bottom: 2.75rem !important;
+        }
+
+        .section-alt {
+            background: rgba(17, 17, 24, 0.4);
+
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero-section {
+            padding-top: 140px !important;
+            padding-bottom: 36px !important;
+        }
+
+        @media (min-width: 768px) {
+
+            .hero-section {
+                padding-top: 130px !important;
+                padding-bottom: 42px !important;
+            }
+
+        }
+
+        @media (min-width: 1024px) {
+
+            .hero-section {
+                padding-top: 120px !important;
+            }
+
+        }
+
+
+        /* =========================================
+           NAV GLASS EFFECT
+        ========================================= */
+
+        .glass-nav {
+            background: rgba(17, 17, 24, 0.85);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+
+        /* =========================================
+           EDITORIAL ACCENT
+        ========================================= */
+
+        .editorial-accent {
+            font-family: 'Instrument Serif', serif;
+
+            font-style: italic;
+
+            font-weight: 400;
+
+            color: #ccff00;
+        }
+
+
+        /* =========================================
+           WORK CARDS
+        ========================================= */
+
+        .work-card {
+            background:
+                linear-gradient(
+                    145deg,
+                    #13131c,
+                    #0b0b12
+                );
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                background 0.3s ease;
+        }
+
+        .work-card:hover {
+            border-color: rgba(204, 255, 0, 0.3);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #171724,
+                    #0e0e16
+                );
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================================
+           SCROLL REVEAL SYSTEM (ONLY BELOW THE FOLD)
+        ========================================= */
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .scroll-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* =========================================
+           LOADING / COVER SCREEN
+        ========================================= */
+
+        body.loading {
+            overflow: hidden;
+        }
+
+        #pageLoader {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            background: radial-gradient(circle at 50% 50%, #12121a 0%, #060609 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 !important;
+            padding: 0 !important;
+            z-index: 99999;
+            overflow: hidden;
+            pointer-events: auto;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        #pageLoader::before {
+            content: "";
+            position: absolute;
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            background: rgba(124, 58, 237, 0.15);
+            filter: blur(100px);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .loader-content {
+            position: relative;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 !important;
+            padding: 0 !important;
+            line-height: 0;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .loader-logo {
+            width: clamp(110px, 18vw, 150px);
+            height: auto;
+            display: block;
+            margin: 0 auto !important;
+            object-fit: contain;
+            animation: clearLogoFocus 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes clearLogoFocus {
+            0% {
+                opacity: 0;
+                transform: scale(0.92);
+                filter: blur(8px);
+            }
+            
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: blur(0px) drop-shadow(0 0 20px rgba(204, 255, 0, 0.35));
+            }
+        }
+
+        body.loaded .loader-content {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        body.loaded #pageLoader {
+            transform: translateY(-100%);
+            pointer-events: none;
+        }
+
+        /* Navigation transition: cover the current page before going back. */
+        body.page-transitioning #pageLoader {
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        body.page-transitioning .loader-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* =========================================
+           MOBILE MENU
+        ========================================= */
+
+        #mobileMenu {
+            transform-origin: top;
+
+            transition:
+                opacity 0.3s cubic-bezier(.16, 1, .3, 1),
+                transform 0.3s cubic-bezier(.16, 1, .3, 1),
+                visibility 0.3s ease;
+        }
+
+        #mobileMenu.hidden {
+            opacity: 0;
+
+            transform: scaleY(0.95);
+
+            pointer-events: none;
+
+            visibility: hidden;
+        }
+
+        #mobileMenu:not(.hidden) {
+            opacity: 1;
+
+            transform: scaleY(1);
+
+            pointer-events: auto;
+
+            visibility: visible;
+        }
+
+
+        /* =========================================
+           SMALL PHONES & RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 480px) {
+
+            .site-container {
+                width: calc(100% - 1.25rem);
+            }
+
+            section {
+                padding-top: 2.25rem !important;
+                padding-bottom: 2.25rem !important;
+            }
+
+        }
+
+        @media (min-width: 1536px) {
+
+            .site-container {
+                width: calc(100% - 4rem);
+            }
+
+        }
+
+
+        /* =========================================
+           MARQUEE ANIMATION
+        ========================================= */
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+        
+        .service-arrow {
+    transition: transform 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.service-arrow:hover {
+    transform: translateY(-50%) scale(1.06);
+}
+
+@media (max-width: 768px) {
+    .service-arrow {
+        padding: 0.45rem;
+    }
+    .service-arrow svg {
+        width: 1.1rem;
+        height: 1.1rem;
+    }
+}
+
+.w-stack-stage {
+    position: relative;
+    width: 100%;
+    max-width: 1500px;
+    height: 520px;
+    margin: 10px auto;
+    perspective: 2000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    touch-action: pan-y;
+}
+
+.w-card {
+    position: absolute;
+    width: 410px;
+    height: 480px;
+    border-radius: 32px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 35px 80px rgba(0,0,0,0.85);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease, filter 0.6s ease, border-color 0.6s ease;
+    cursor: grab;
+    background: linear-gradient(145deg, #161622, #0d0d14);
+    transform-origin: bottom center;
+    overflow: hidden;
+}
+
+.w-card:active { cursor: grabbing; }
+
+/* Positional Slots for 3D Perspective Stack */
+.w-card[data-slot="-2"] { transform: translateX(-500px) translateY(55px) rotate(-14deg) scale(0.85); z-index: 1; opacity: 0.52; filter: blur(1.5px); }
+.w-card[data-slot="-1"] { transform: translateX(-250px) translateY(-15px) rotate(-7deg) scale(0.93); z-index: 5; opacity: 0.9; filter: blur(0px); }
+.w-card[data-slot="0"] { transform: translateX(0px) translateY(15px) rotate(0deg) scale(1); z-index: 10; opacity: 1; border-color: rgba(204, 255, 0, 0.5); box-shadow: 0 45px 100px rgba(0,0,0,0.95), 0 0 40px rgba(204, 255, 0, 0.1); filter: blur(0px); }
+.w-card[data-slot="1"] { transform: translateX(250px) translateY(-15px) rotate(7deg) scale(0.93); z-index: 5; opacity: 0.9; filter: blur(0px); }
+.w-card[data-slot="2"] { transform: translateX(500px) translateY(55px) rotate(14deg) scale(0.85); z-index: 1; opacity: 0.52; filter: blur(1.5px); }
+.w-card[data-slot="hidden"] { transform: translateX(0px) translateY(80px) scale(0.7); z-index: 0; opacity: 0; pointer-events: none; }
+
+/* Inner Content Zoom Transitions */
+.w-card .card-zoom-content {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.w-card[data-slot="0"] .card-zoom-content {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+}
+
+.w-card[data-slot="-1"] .card-zoom-content,
+.w-card[data-slot="1"] .card-zoom-content {
+    opacity: 0.6;
+    transform: translateY(10px) scale(0.97);
+}
+
+.w-card[data-slot="-2"] .card-zoom-content,
+.w-card[data-slot="2"] .card-zoom-content {
+    opacity: 0.32;
+    transform: translateY(20px) scale(0.95);
+}
+
+/* Responsive Overrides */
+@media(max-width: 1200px) {
+    .w-card { width: 360px; height: 460px; }
+    .w-card[data-slot="-2"] { transform: translateX(-210px) translateY(35px) scale(0.82); }
+    .w-card[data-slot="-1"] { transform: translateX(-105px) translateY(-10px) scale(0.9); }
+    .w-card[data-slot="1"] { transform: translateX(105px) translateY(-10px) scale(0.9); }
+    .w-card[data-slot="2"] { transform: translateX(210px) translateY(35px) scale(0.82); }
+}
+
+@media(max-width: 768px) {
+    .w-stack-stage { height: 440px; max-width: 100%; }
+    .w-card { width: 300px; height: 420px; padding: 24px; }
+    .w-card[data-slot="-2"], .w-card[data-slot="2"] { display: none; }
+    .w-card[data-slot="-1"] { transform: translateX(-80px) translateY(10px) rotate(-5deg) scale(0.88); opacity: 0.6; }
+    .w-card[data-slot="0"] { transform: translateX(0px) translateY(0px) rotate(0deg) scale(1); }
+    .w-card[data-slot="1"] { transform: translateX(80px) translateY(10px) rotate(5deg) scale(0.88); opacity: 0.6; }
+}
+
+
+    
+
+/* =========================================
+   MODERN VISUAL REDESIGN — REFINED
+   Keep the original visual system; only subtle polish.
+========================================= */
+.hero-section .work-card {
+    background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.025))!important;
+    border-radius:28px!important;
+    padding:10px!important;
+}
+.hero-section .work-card::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:28px;
+    pointer-events:none;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.14);
+}
+.w-card {
+    border:1px solid rgba(255,255,255,.11)!important;
+    box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08)!important;
+    overflow:hidden;
+}
+.w-card::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.38) 72%,rgba(0,0,0,.7));
+}
+.w-card > * { position:relative; z-index:2; }
+.w-card h3 { font-size:clamp(1.2rem,1.8vw,1.55rem)!important; letter-spacing:-.03em; }
+.w-card li strong { font-size:.72rem; letter-spacing:.01em; }
+.w-card li p { opacity:.68; }
+#services .w-stack-stage { height:clamp(470px,43vw,560px); }
+#proof-of-work .pow-category-block {
+    border-radius:26px!important;
+    border-color:rgba(255,255,255,.1)!important;
+    background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015))!important;
+    box-shadow:0 25px 70px rgba(0,0,0,.25);
+    transition:transform .3s ease,border-color .3s ease;
+}
+#proof-of-work .pow-category-block:hover { transform:translateY(-5px); border-color:rgba(204,255,0,.22)!important; }
+#proof-of-work .pow-category-block img { border-radius:18px!important; }
+@media (max-width:768px) {
+    .hero-section .work-card { border-radius:24px!important; }
+}
+
+
+
+/* FINAL RESPONSIVE POLISH */
+@media (min-width: 769px) {
+  #about .site-container {
+    width: calc(100% - clamp(3rem, 8vw, 9rem)) !important;
+  }
+}
+@media (min-width: 1200px) {
+  #about .site-container {
+    width: calc(100% - clamp(5rem, 10vw, 12rem)) !important;
+  }
+}
+@media (max-width: 768px) {
+  #about .site-container {
+    width: calc(100% - 2.5rem) !important;
+  }
+}
+</style>
+<meta content="SLTS Labs is a Web3 marketing and growth agency specializing in community growth, KOL marketing, content, launches, websites and distribution." name="description"/>
+<meta content="SLTS Labs — Web3 Marketing &amp; Growth Agency" property="og:title"/>
+<meta content="Web3 growth campaigns built for execution, distribution and measurable results." property="og:description"/>
+<meta content="og-image.png" property="og:image"/>
+<meta content="website" property="og:type"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<style id="about-clean-modern">
+/* ABOUT — modern editorial layout, no background panel */
+#about {
+  background: transparent !important;
+  padding-top: clamp(3.5rem, 6vw, 6rem) !important;
+  padding-bottom: clamp(3.75rem, 6vw, 6.5rem) !important;
+}
+#about .site-container {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+#about .site-container > div,
+#about .site-container > article {
+  background: transparent !important;
+}
+/* natural section rhythm */
+.hero-section { padding-bottom: clamp(3rem, 5vw, 5rem) !important; }
+#services { padding-top: clamp(3.5rem, 5vw, 5.5rem) !important; padding-bottom: clamp(3.5rem, 5vw, 5.5rem) !important; }
+#proof-of-work { padding-top: clamp(3.5rem, 5vw, 5.5rem) !important; padding-bottom: clamp(4rem, 6vw, 6rem) !important; }
+@media (max-width: 768px) {
+  #about { padding-top: 3rem !important; padding-bottom: 3.5rem !important; }
+  .hero-section { padding-bottom: 2.75rem !important; }
+  #services, #proof-of-work { padding-top: 3rem !important; padding-bottom: 3.5rem !important; }
+}
+</style>
+<style id="responsive-polish">
+/* Laptop/desktop hero: keep the intended two-line composition. */
+@media (min-width: 1024px) {
+  .hero-section h1 {
+    max-width: 1100px;
+    text-wrap: balance;
+  }
+}
+
+/* About: give the content breathing room from the viewport edges and softer geometry. */
+#about .site-container {
+  width: calc(100% - clamp(2rem, 6vw, 7rem)) !important;
+  border-radius: 28px;
+}
+
+@media (max-width: 768px) {
+  #about .site-container {
+    width: calc(100% - 2rem) !important;
+    border-radius: 24px;
+  }
+}
+</style>
+<title>Websites — SLTS Labs</title>
+<style>
+      .websites-page { padding-top: 132px; padding-bottom: 70px; }
+      .website-grid { display:grid; grid-template-columns:1fr; gap:1.25rem; }
+      .website-intro { width:100%; max-width:1200px; margin:0 auto; }
+      .website-showcase-card { display:flex; flex-direction:column; min-width:0; min-height:0; }
+      .website-showcase-card > div:first-of-type { aspect-ratio:16/7; flex-shrink:0; }
+      .website-showcase-card { min-width:0; box-shadow:0 20px 70px rgba(0,0,0,.18); }
+      .website-showcase-card:hover { transform:translateY(-4px); box-shadow:0 28px 90px rgba(0,0,0,.32); }
+      @media (min-width:640px) { .website-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.35rem; } }
+      /* DESKTOP ONLY — use two wider project cards per row.
+         Mobile/tablet layouts remain unchanged. */
+      @media (min-width:1024px) {
+        .website-grid {
+          grid-template-columns:repeat(2,minmax(0,1fr));
+          gap:1.5rem;
+        }
+
+        /* DESKTOP: landscape portfolio cards — preview beside project details.
+           Portrait/tablet/mobile layouts are intentionally left untouched. */
+        .website-showcase-card {
+          display:grid;
+          grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+          min-height:330px;
+          align-items:stretch;
+        }
+        .website-showcase-card > div:first-of-type {
+          aspect-ratio:auto;
+          height:100%;
+          min-height:330px;
+          border-bottom:0;
+          border-right:1px solid rgba(255,255,255,.10);
+        }
+        .website-showcase-card > div:last-child {
+          min-width:0;
+          padding:1.35rem;
+          display:flex;
+          flex-direction:column;
+          justify-content:flex-start;
+        }
+        .website-showcase-card > div:last-child .mb-6 {
+          margin-bottom:1rem;
+        }
+        .website-showcase-card > div:last-child .mb-4 {
+          margin-bottom:.85rem;
+        }
+      }
+      @media (min-width:1440px) {
+        .website-grid {
+          grid-template-columns:repeat(2,minmax(0,1fr));
+          gap:1.6rem;
+        }
+      }
+      @media (max-width:640px) { .websites-page { padding-top:112px; padding-bottom:50px; } }
+    </style>
+<body class="loading">
+<div aria-hidden="true" id="pageLoader">
+<div class="loader-content">
+<img alt="SLTS Labs" class="loader-logo" src="logo.png"/>
+</div>
+</div>
+<canvas id="spaceCanvas"></canvas>
+<!-- =========================================
+         HEADER / NAVIGATION
+    ========================================== -->
+<header class="fixed top-0 left-0 w-full z-50 py-4 px-[clamp(0.625rem,1.5vw,1.75rem)]">
+<nav class="glass-nav rounded-full w-full px-6 py-3.5 flex items-center justify-between shadow-2xl">
+<!-- LOGO -->
+<a class="flex items-center" href="#">
+<div class="h-8 flex items-center overflow-visible">
+<img alt="sltslabs logo" class="h-10 w-auto object-contain scale-[2.0] origin-left" src="logo.png"/>
+</div>
+</a>
+<!-- DESKTOP NAVIGATION -->
+<div class="hidden md:flex items-center justify-end gap-[clamp(0.7rem,1.4vw,1.5rem)] ml-auto text-[clamp(0.55rem,0.7vw,0.72rem)] tracking-[0.08em] uppercase font-semibold text-mutedText whitespace-nowrap">
+<a class="hover:text-white transition-colors" href="./SLTS Labs - Modern Visual Redesign.html">Home</a>
+<a class="hover:text-white transition-colors" href="./SLTS Labs - Modern Visual Redesign.html#services">What We Offer</a>
+<a class="hover:text-white transition-colors" href="./SLTS Labs - Modern Visual Redesign.html#proof-of-work">Proof of Work</a>
+<a class="hover:text-white transition-colors" href="./SLTS Labs - Modern Visual Redesign.html#contact">Contact</a>
+</div>
+<!-- MOBILE MENU BUTTON -->
+<div class="flex items-center gap-4">
+<button aria-controls="mobileMenu" aria-expanded="false" aria-label="Toggle Menu" class="md:hidden text-white focus:outline-none p-2" id="menuToggle" type="button">
+<svg aria-hidden="true" class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</nav>
+<!-- MOBILE NAVIGATION -->
+<div class="hidden md:hidden glass-nav rounded-2xl mt-2 p-6 border border-white/10 flex flex-col gap-4 text-xs tracking-widest uppercase font-semibold text-mutedText" id="mobileMenu">
+<a class="hover:text-white transition-colors mobile-link" href="./SLTS Labs - Modern Visual Redesign.html">Home</a>
+<a class="hover:text-white transition-colors mobile-link" href="./SLTS Labs - Modern Visual Redesign.html#services">What We Offer</a>
+<a class="hover:text-white transition-colors mobile-link" href="./SLTS Labs - Modern Visual Redesign.html#proof-of-work">Proof of Work</a>
+<a class="hover:text-white transition-colors mobile-link" href="./SLTS Labs - Modern Visual Redesign.html#contact">Contact</a>
+</div>
+</header>
+<main class="websites-page relative z-10">
+<section class="w-full relative z-20">
+<div class="site-container">
+<div class="website-intro w-full max-w-none mx-auto mb-9 sm:mb-12">
+<div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-7 lg:gap-10">
+<div class="website-intro-copy max-w-3xl">
+<h1 class="text-[clamp(2rem,3vw,3.25rem)] font-black text-white tracking-[-0.035em] leading-[1.02]">Selected Website Projects</h1>
+<p class="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-base text-silverText/70 leading-relaxed">A selection of websites designed and developed by SLTS Labs for brands, products, and Web3 projects looking to turn attention into action.</p>
+</div>
+<a class="website-intro-cta shrink-0 self-start lg:mt-1 inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-full bg-limeAccent text-black text-xs sm:text-sm font-black tracking-tight hover:scale-[1.02] transition-transform duration-200 shadow-[0_10px_40px_rgba(204,255,0,0.12)]" href="./SLTS Labs - Modern Visual Redesign.html#contact">
+                Let’s build your website <span class="text-base">↗</span>
+</a>
+</div>
+</div>
+<div class="website-grid">
+<article class="website-showcase-card group rounded-[24px] overflow-hidden bg-white/[0.025] border border-white/10 hover:border-limeAccent/40 transition-all duration-300">
+<div class="relative aspect-[16/10] overflow-hidden bg-[#0b0b10] border-b border-white/10">
+<img alt="TOMPOLO MEMECOIN website preview" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition-all duration-500" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" src="https://api.microlink.io/?url=https%3A%2F%2Ftompololagacy.github.io%2FTompolocoin%2Findex.html&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
+<div class="absolute inset-0 items-center justify-center text-center px-6" style="display:none">
+<div><div class="text-2xl font-black text-white/20">SLTS Labs</div><div class="text-[10px] uppercase tracking-[0.2em] text-silverText/40 mt-2">Website Preview</div></div>
+</div>
+</div>
+<div class="p-5 sm:p-6">
+<div class="flex items-center justify-between gap-4">
+<div class="min-w-0">
+<h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover:text-limeAccent transition-colors duration-200">TOMPOLO MEMECOIN</h3>
+</div>
+<a class="shrink-0 inline-flex items-center gap-2 text-xs font-bold text-limeAccent hover:text-white transition-colors" href="https://tompololagacy.github.io/Tompolocoin/index.html" rel="noopener noreferrer" target="_blank">
+                    Preview <span class="text-sm">↗</span>
+</a>
+</div>
+</div></article>
+<article class="website-showcase-card group rounded-[24px] overflow-hidden bg-white/[0.025] border border-white/10 hover:border-limeAccent/40 transition-all duration-300">
+<div class="relative aspect-[16/10] overflow-hidden bg-[#0b0b10] border-b border-white/10">
+<img alt="MOOVE website preview" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition-all duration-500" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" src="https://api.microlink.io/?url=https%3A%2F%2Fwww.moove.xyz%2F&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
+<div class="absolute inset-0 items-center justify-center text-center px-6" style="display:none">
+<div><div class="text-2xl font-black text-white/20">SLTS Labs</div><div class="text-[10px] uppercase tracking-[0.2em] text-silverText/40 mt-2">Website Preview</div></div>
+</div>
+</div>
+<div class="p-5 sm:p-6"><div class="flex items-start justify-between gap-2 mb-1"><div class="min-w-0"><span class="inline-block text-[10px] font-bold text-white bg-blue-600 px-3 py-1 rounded-full uppercase tracking-wider shadow-md mb-3">Web3 / Mobility</span><h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover:text-limeAccent transition-colors duration-200">MOOVE</h3></div><a class="shrink-0 inline-flex items-center gap-2 text-xs font-bold text-limeAccent hover:text-white transition-colors" href="https://www.moove.xyz/" rel="noopener noreferrer" target="_blank">Preview <span class="text-sm">↗</span></a></div><p class="text-xs font-semibold text-silverText/50 mb-3">Moove Web3 Platform</p><p class="text-xs sm:text-sm font-bold text-white/80 leading-relaxed mb-6">Modern product website presenting Moove’s mobility ecosystem, services, and digital experience through a clean, conversion-focused interface.</p><div class="mb-4"><span class="text-[10px] font-bold text-silverText/50 uppercase tracking-wider block mb-2">TECHNOLOGIES</span><div class="flex flex-wrap gap-1.5"><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">React / Web3</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Responsive UI</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Web3 Integration</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Product UX</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Conversion Design</span></div></div><div class="flex items-center gap-1.5 text-xs text-silverText/60"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span>Shipped Q1</span></div></div></article>
+<article class="website-showcase-card group rounded-[24px] overflow-hidden bg-white/[0.025] border border-white/10 hover:border-limeAccent/40 transition-all duration-300">
+<div class="relative aspect-[16/10] overflow-hidden bg-[#0b0b10] border-b border-white/10">
+<img alt="BOOMTECH INCORPORATED website preview" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition-all duration-500" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" src="https://api.microlink.io/?url=https%3A%2F%2Fwww.boomtechincorporated.com%2F&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
+<div class="absolute inset-0 items-center justify-center text-center px-6" style="display:none">
+<div><div class="text-2xl font-black text-white/20">SLTS Labs</div><div class="text-[10px] uppercase tracking-[0.2em] text-silverText/40 mt-2">Website Preview</div></div>
+</div>
+</div>
+<div class="p-5 sm:p-6"><div class="flex items-start justify-between gap-2 mb-1"><div class="min-w-0"><span class="inline-block text-[10px] font-bold text-white bg-blue-600 px-3 py-1 rounded-full uppercase tracking-wider shadow-md mb-3">Technology / Corporate</span><h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover:text-limeAccent transition-colors duration-200">BOOMTECH INCORPORATED</h3></div><a class="shrink-0 inline-flex items-center gap-2 text-xs font-bold text-limeAccent hover:text-white transition-colors" href="https://www.boomtechincorporated.com/" rel="noopener noreferrer" target="_blank">Preview <span class="text-sm">↗</span></a></div><p class="text-xs font-semibold text-silverText/50 mb-3">Boomtech Incorporated</p><p class="text-xs sm:text-sm font-bold text-white/80 leading-relaxed mb-6">Professional corporate website built to present Boomtech’s technology services, capabilities, and brand story with a polished digital-first experience.</p><div class="mb-4"><span class="text-[10px] font-bold text-silverText/50 uppercase tracking-wider block mb-2">TECHNOLOGIES</span><div class="flex flex-wrap gap-1.5"><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">HTML5 / CSS3</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">JavaScript</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Responsive Design</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Corporate UX</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Performance Optimization</span></div></div><div class="flex items-center gap-1.5 text-xs text-silverText/60"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span>Shipped Q1</span></div></div></article>
+<article class="website-showcase-card group rounded-[24px] overflow-hidden bg-white/[0.025] border border-white/10 hover:border-limeAccent/40 transition-all duration-300">
+<div class="relative aspect-[16/10] overflow-hidden bg-[#0b0b10] border-b border-white/10">
+<img alt="CASH-IN website preview" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition-all duration-500" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" src="https://api.microlink.io/?url=https%3A%2F%2Fcash-in.app%2F&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
+<div class="absolute inset-0 items-center justify-center text-center px-6" style="display:none">
+<div><div class="text-2xl font-black text-white/20">SLTS Labs</div><div class="text-[10px] uppercase tracking-[0.2em] text-silverText/40 mt-2">Website Preview</div></div>
+</div>
+</div>
+<div class="p-5 sm:p-6"><div class="flex items-start justify-between gap-2 mb-1"><div class="min-w-0"><span class="inline-block text-[10px] font-bold text-white bg-blue-600 px-3 py-1 rounded-full uppercase tracking-wider shadow-md mb-3">Fintech / Payments</span><h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover:text-limeAccent transition-colors duration-200">CASH-IN</h3></div><a class="shrink-0 inline-flex items-center gap-2 text-xs font-bold text-limeAccent hover:text-white transition-colors" href="https://cash-in.app/" rel="noopener noreferrer" target="_blank">Preview <span class="text-sm">↗</span></a></div><p class="text-xs font-semibold text-silverText/50 mb-3">Cash-In</p><p class="text-xs sm:text-sm font-bold text-white/80 leading-relaxed mb-6">Conversion-focused fintech interface designed to communicate the Cash-In product clearly while making the core payment experience easy to understand and navigate.</p><div class="mb-4"><span class="text-[10px] font-bold text-silverText/50 uppercase tracking-wider block mb-2">TECHNOLOGIES</span><div class="flex flex-wrap gap-1.5"><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">HTML5 / CSS3</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">JavaScript</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Responsive UI</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Fintech UX</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Conversion Design</span></div></div><div class="flex items-center gap-1.5 text-xs text-silverText/60"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span>Shipped Q1</span></div></div></article>
+<article class="website-showcase-card group rounded-[24px] overflow-hidden bg-white/[0.025] border border-white/10 hover:border-limeAccent/40 transition-all duration-300">
+<div class="relative aspect-[16/10] overflow-hidden bg-[#0b0b10] border-b border-white/10">
+<img alt="PAYTOP website preview" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition-all duration-500" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" src="https://api.microlink.io/?url=https%3A%2F%2Fwww.paytop.io%2F&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
+<div class="absolute inset-0 items-center justify-center text-center px-6" style="display:none">
+<div><div class="text-2xl font-black text-white/20">SLTS Labs</div><div class="text-[10px] uppercase tracking-[0.2em] text-silverText/40 mt-2">Website Preview</div></div>
+</div>
+</div>
+<div class="p-5 sm:p-6"><div class="flex items-start justify-between gap-2 mb-1"><div class="min-w-0"><span class="inline-block text-[10px] font-bold text-white bg-blue-600 px-3 py-1 rounded-full uppercase tracking-wider shadow-md mb-3">Fintech / Payments</span><h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover:text-limeAccent transition-colors duration-200">PAYTOP</h3></div><a class="shrink-0 inline-flex items-center gap-2 text-xs font-bold text-limeAccent hover:text-white transition-colors" href="https://www.paytop.io/" rel="noopener noreferrer" target="_blank">Preview <span class="text-sm">↗</span></a></div><p class="text-xs font-semibold text-silverText/50 mb-3">Paytop</p><p class="text-xs sm:text-sm font-bold text-white/80 leading-relaxed mb-6">A polished payments-focused website that brings Paytop’s financial product, value proposition, and user journey together in a clear and modern interface.</p><div class="mb-4"><span class="text-[10px] font-bold text-silverText/50 uppercase tracking-wider block mb-2">TECHNOLOGIES</span><div class="flex flex-wrap gap-1.5"><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">HTML5 / CSS3</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">JavaScript</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Responsive Design</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Fintech UX</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Product UI</span></div></div><div class="flex items-center gap-1.5 text-xs text-silverText/60"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span>Shipped Q1</span></div></div></article>
+<article class="website-showcase-card group rounded-[24px] overflow-hidden bg-white/[0.025] border border-white/10 hover:border-limeAccent/40 transition-all duration-300">
+<div class="relative aspect-[16/10] overflow-hidden bg-[#0b0b10] border-b border-white/10">
+<img alt="BOOKWORM FOR KIDS website preview" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition-all duration-500" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" src="https://api.microlink.io/?url=https%3A%2F%2Fwww.bookwormforkids.nl%2F&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
+<div class="absolute inset-0 items-center justify-center text-center px-6" style="display:none">
+<div><div class="text-2xl font-black text-white/20">SLTS Labs</div><div class="text-[10px] uppercase tracking-[0.2em] text-silverText/40 mt-2">Website Preview</div></div>
+</div>
+</div>
+<div class="p-5 sm:p-6"><div class="flex items-start justify-between gap-2 mb-1"><div class="min-w-0"><span class="inline-block text-[10px] font-bold text-white bg-blue-600 px-3 py-1 rounded-full uppercase tracking-wider shadow-md mb-3">Education / Kids</span><h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover:text-limeAccent transition-colors duration-200">BOOKWORM FOR KIDS</h3></div><a class="shrink-0 inline-flex items-center gap-2 text-xs font-bold text-limeAccent hover:text-white transition-colors" href="https://www.bookwormforkids.nl/" rel="noopener noreferrer" target="_blank">Preview <span class="text-sm">↗</span></a></div><p class="text-xs font-semibold text-silverText/50 mb-3">Bookworm for Kids</p><p class="text-xs sm:text-sm font-bold text-white/80 leading-relaxed mb-6">Friendly, accessible website experience created to showcase Bookworm for Kids and make its educational offering easy for parents and children to explore.</p><div class="mb-4"><span class="text-[10px] font-bold text-silverText/50 uppercase tracking-wider block mb-2">TECHNOLOGIES</span><div class="flex flex-wrap gap-1.5"><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">HTML5 / CSS3</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">JavaScript</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Responsive UI</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Education UX</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Content Architecture</span></div></div><div class="flex items-center gap-1.5 text-xs text-silverText/60"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span>Shipped Q1</span></div></div></article>
+<article class="website-showcase-card group rounded-[24px] overflow-hidden bg-white/[0.025] border border-white/10 hover:border-limeAccent/40 transition-all duration-300">
+<div class="relative aspect-[16/10] overflow-hidden bg-[#0b0b10] border-b border-white/10">
+<img alt="CRYPTO UNITY website preview" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition-all duration-500" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" src="https://api.microlink.io/?url=https%3A%2F%2Fcryptounity.eu%2F%3Futm_source%3DCU-LTree&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
+<div class="absolute inset-0 items-center justify-center text-center px-6" style="display:none">
+<div><div class="text-2xl font-black text-white/20">SLTS Labs</div><div class="text-[10px] uppercase tracking-[0.2em] text-silverText/40 mt-2">Website Preview</div></div>
+</div>
+</div>
+<div class="p-5 sm:p-6"><div class="flex items-start justify-between gap-2 mb-1"><div class="min-w-0"><span class="inline-block text-[10px] font-bold text-white bg-blue-600 px-3 py-1 rounded-full uppercase tracking-wider shadow-md mb-3">Web3 / Community</span><h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover:text-limeAccent transition-colors duration-200">CRYPTO UNITY</h3></div><a class="shrink-0 inline-flex items-center gap-2 text-xs font-bold text-limeAccent hover:text-white transition-colors" href="https://cryptounity.eu/?utm_source=CU-LTree" rel="noopener noreferrer" target="_blank">Preview <span class="text-sm">↗</span></a></div><p class="text-xs font-semibold text-silverText/50 mb-3">Crypto Unity</p><p class="text-xs sm:text-sm font-bold text-white/80 leading-relaxed mb-6">Community-led Web3 website designed to communicate the Crypto Unity ecosystem, organize key information, and give visitors a clear path into the project.</p><div class="mb-4"><span class="text-[10px] font-bold text-silverText/50 uppercase tracking-wider block mb-2">TECHNOLOGIES</span><div class="flex flex-wrap gap-1.5"><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">HTML5 / CSS3</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">JavaScript</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Web3 UX</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Community Design</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Responsive UI</span></div></div><div class="flex items-center gap-1.5 text-xs text-silverText/60"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span>Shipped Q1</span></div></div></article>
+<article class="website-showcase-card group rounded-[24px] overflow-hidden bg-white/[0.025] border border-white/10 hover:border-limeAccent/40 transition-all duration-300">
+<div class="relative aspect-[16/10] overflow-hidden bg-[#0b0b10] border-b border-white/10">
+<img alt="KELLAS V9 website preview" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition-all duration-500" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" src="https://api.microlink.io/?url=https%3A%2F%2Fkellasv9-1-1.vercel.app%2F&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
+<div class="absolute inset-0 items-center justify-center text-center px-6" style="display:none">
+<div><div class="text-2xl font-black text-white/20">SLTS Labs</div><div class="text-[10px] uppercase tracking-[0.2em] text-silverText/40 mt-2">Website Preview</div></div>
+</div>
+</div>
+<div class="p-5 sm:p-6"><div class="flex items-start justify-between gap-2 mb-1"><div class="min-w-0"><span class="inline-block text-[10px] font-bold text-white bg-blue-600 px-3 py-1 rounded-full uppercase tracking-wider shadow-md mb-3">Web3 / Token</span><h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover:text-limeAccent transition-colors duration-200">KELLAS V9</h3></div><a class="shrink-0 inline-flex items-center gap-2 text-xs font-bold text-limeAccent hover:text-white transition-colors" href="https://kellasv9-1-1.vercel.app/" rel="noopener noreferrer" target="_blank">Preview <span class="text-sm">↗</span></a></div><p class="text-xs font-semibold text-silverText/50 mb-3">Kellas V9</p><p class="text-xs sm:text-sm font-bold text-white/80 leading-relaxed mb-6">High-impact Web3 landing page built around a strong visual identity, concise project messaging, and a focused journey for visitors exploring the token.</p><div class="mb-4"><span class="text-[10px] font-bold text-silverText/50 uppercase tracking-wider block mb-2">TECHNOLOGIES</span><div class="flex flex-wrap gap-1.5"><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">HTML5 / CSS3</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">JavaScript</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Web3 UI</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Responsive Design</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Conversion UX</span></div></div><div class="flex items-center gap-1.5 text-xs text-silverText/60"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span>Shipped Q1</span></div></div></article>
+<article class="website-showcase-card group rounded-[24px] overflow-hidden bg-white/[0.025] border border-white/10 hover:border-limeAccent/40 transition-all duration-300">
+<div class="relative aspect-[16/10] overflow-hidden bg-[#0b0b10] border-b border-white/10">
+<img alt="CRUSTY MICROWAVE website preview" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition-all duration-500" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" src="https://api.microlink.io/?url=https%3A%2F%2Fcrusty-microwave.vercel.app%2F&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
+<div class="absolute inset-0 items-center justify-center text-center px-6" style="display:none">
+<div><div class="text-2xl font-black text-white/20">SLTS Labs</div><div class="text-[10px] uppercase tracking-[0.2em] text-silverText/40 mt-2">Website Preview</div></div>
+</div>
+</div>
+<div class="p-5 sm:p-6"><div class="flex items-start justify-between gap-2 mb-1"><div class="min-w-0"><span class="inline-block text-[10px] font-bold text-white bg-blue-600 px-3 py-1 rounded-full uppercase tracking-wider shadow-md mb-3">Meme / Web3</span><h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover:text-limeAccent transition-colors duration-200">CRUSTY MICROWAVE</h3></div><a class="shrink-0 inline-flex items-center gap-2 text-xs font-bold text-limeAccent hover:text-white transition-colors" href="https://crusty-microwave.vercel.app/" rel="noopener noreferrer" target="_blank">Preview <span class="text-sm">↗</span></a></div><p class="text-xs font-semibold text-silverText/50 mb-3">Crusty Microwave</p><p class="text-xs sm:text-sm font-bold text-white/80 leading-relaxed mb-6">Character-driven meme project website built to turn a playful concept into a distinctive digital identity with an engaging, responsive landing experience.</p><div class="mb-4"><span class="text-[10px] font-bold text-silverText/50 uppercase tracking-wider block mb-2">TECHNOLOGIES</span><div class="flex flex-wrap gap-1.5"><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">HTML5 / CSS3</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">JavaScript</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Meme Branding</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Web3 UI</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Responsive Design</span></div></div><div class="flex items-center gap-1.5 text-xs text-silverText/60"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span>Shipped Q1</span></div></div></article>
+<article class="website-showcase-card group rounded-[24px] overflow-hidden bg-white/[0.025] border border-white/10 hover:border-limeAccent/40 transition-all duration-300">
+<div class="relative aspect-[16/10] overflow-hidden bg-[#0b0b10] border-b border-white/10">
+<img alt="WILDCAT COIN website preview" class="w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-[1.025] transition-all duration-500" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" src="https://api.microlink.io/?url=https%3A%2F%2Fwildcatcoin.com%2F&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
+<div class="absolute inset-0 items-center justify-center text-center px-6" style="display:none">
+<div><div class="text-2xl font-black text-white/20">SLTS Labs</div><div class="text-[10px] uppercase tracking-[0.2em] text-silverText/40 mt-2">Website Preview</div></div>
+</div>
+</div>
+<div class="p-5 sm:p-6"><div class="flex items-start justify-between gap-2 mb-1"><div class="min-w-0"><span class="inline-block text-[10px] font-bold text-white bg-blue-600 px-3 py-1 rounded-full uppercase tracking-wider shadow-md mb-3">Meme / Token</span><h3 class="text-lg sm:text-xl font-black text-white tracking-tight group-hover:text-limeAccent transition-colors duration-200">WILDCAT COIN</h3></div><a class="shrink-0 inline-flex items-center gap-2 text-xs font-bold text-limeAccent hover:text-white transition-colors" href="https://wildcatcoin.com/" rel="noopener noreferrer" target="_blank">Preview <span class="text-sm">↗</span></a></div><p class="text-xs font-semibold text-silverText/50 mb-3">Wildcat Coin</p><p class="text-xs sm:text-sm font-bold text-white/80 leading-relaxed mb-6">Bold token-focused website designed to establish the Wildcat Coin brand, communicate its story, and create a memorable entry point for the community.</p><div class="mb-4"><span class="text-[10px] font-bold text-silverText/50 uppercase tracking-wider block mb-2">TECHNOLOGIES</span><div class="flex flex-wrap gap-1.5"><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">HTML5 / CSS3</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">JavaScript</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Token UX</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Web3 Branding</span><span class="text-[10px] sm:text-[11px] font-semibold text-silverText/80 bg-white/5 border border-white/10 px-2 sm:px-2.5 py-1 rounded-md">Responsive UI</span></div></div><div class="flex items-center gap-1.5 text-xs text-silverText/60"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg><span>Shipped Q1</span></div></div></article>
+</div>
+<div class="flex justify-center pt-14 sm:pt-18">
+<a class="inline-flex items-center justify-center gap-2 px-7 sm:px-8 py-3.5 sm:py-4 rounded-full bg-limeAccent text-black text-xs sm:text-sm font-black tracking-tight hover:scale-[1.02] transition-transform duration-200 shadow-[0_10px_40px_rgba(204,255,0,0.12)]" href="./SLTS Labs - Modern Visual Redesign.html#contact">
+              Let’s build your website <span class="text-base">↗</span>
+</a>
+</div>
+<div class="flex justify-center pt-7 sm:pt-9">
+<a class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-white/10 bg-white/[0.03] hover:bg-white/[0.07] hover:border-white/20 text-xs sm:text-sm font-bold text-white transition-all duration-200" href="./SLTS Labs - Modern Visual Redesign.html#proof-of-work" id="backHome">
+<span>←</span> Back to Home
+            </a>
+</div>
+</div>
+</section>
+</main>
+<script>
+      const canvas=document.getElementById('spaceCanvas');
+      const ctx=canvas.getContext('2d');
+      let width,height,stars=[];
+      function initCanvas(){ width=window.innerWidth; height=window.innerHeight; canvas.width=width; canvas.height=height; stars=[]; const numStars=Math.floor((width*height)/9000); for(let i=0;i<numStars;i++) stars.push({x:Math.random()*width,y:Math.random()*height,radius:Math.random()*1.5,alpha:Math.random(),speed:Math.random()*0.005+0.002}); }
+      function animateStars(){ ctx.clearRect(0,0,width,height); stars.forEach(star=>{ star.alpha+=star.speed; if(star.alpha>1||star.alpha<0.2) star.speed=-star.speed; ctx.fillStyle=`rgba(255,255,255,${Math.abs(star.alpha)})`; ctx.beginPath(); ctx.arc(star.x,star.y,star.radius,0,Math.PI*2); ctx.fill(); }); requestAnimationFrame(animateStars); }
+      window.addEventListener('resize',initCanvas); initCanvas(); animateStars();
+    </script>
+<script>
+      document.addEventListener('DOMContentLoaded',()=>{ const toggle=document.getElementById('menuToggle'); const menu=document.getElementById('mobileMenu'); if(toggle&&menu){ toggle.addEventListener('click',()=>{ const open=!menu.classList.contains('hidden'); menu.classList.toggle('hidden'); toggle.setAttribute('aria-expanded',String(!open)); }); menu.querySelectorAll('.mobile-link').forEach(link=>link.addEventListener('click',()=>menu.classList.add('hidden'))); } });
+    </script>
+<script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const dismissLoader = () => {
+          setTimeout(() => {
+            document.body.classList.remove('loading');
+            document.body.classList.add('loaded');
+          }, 900);
+        };
+        if (document.readyState === 'complete') dismissLoader();
+        else window.addEventListener('load', dismissLoader, { once:true });
+
+        const backHome = document.getElementById('backHome');
+        if (backHome) {
+          backHome.addEventListener('click', (event) => {
+            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+            event.preventDefault();
+
+            // Cover this page first. Then use browser history so the homepage
+            // can be restored from its existing state instead of being loaded again.
+            document.body.classList.add('page-transitioning');
+            document.body.classList.remove('loaded');
+
+            setTimeout(() => {
+              const referrer = document.referrer;
+              const sameOrigin = referrer && new URL(referrer).origin === window.location.origin;
+
+              if (sameOrigin && window.history.length > 1) {
+                window.history.back();
+              } else {
+                window.location.assign(new URL(backHome.getAttribute('href'), window.location.href).href);
+              }
+            }, 650);
+          });
+        }
+      });
+    </script>
+</body>
+</head></html>
