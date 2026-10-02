@@ -7,25 +7,6 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  darkMode: 'class',
-  theme: {
-    extend: {
-      colors: {
-        background: '#07070b', surface: '#111118', surfaceAlt: '#161622',
-        limeAccent: '#ccff00', violetAccent: '#7c3aed',
-        mutedText: '#94a3b8', silverText: '#cbd5e1'
-      },
-      fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-        serif: ['"Instrument Serif"', 'serif']
-      }
-    }
-  }
-};
-</script>
 <meta content="SLTS Labs is a Web3 marketing and growth agency specializing in community growth, KOL marketing, content, launches, websites and distribution." name="description"/>
 <meta content="SLTS Labs — Web3 Marketing &amp; Growth Agency" property="og:title"/>
 <meta content="Web3 growth campaigns built for execution, distribution and measurable results." property="og:description"/>
@@ -91,11 +72,11 @@ section{width:100%;min-width:0;padding-top:clamp(2.5rem,4vw,4rem);padding-bottom
 .glass-nav{background:rgba(17,17,24,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08)}
 
 /* ---------- EDITORIAL ACCENT ---------- */
-.editorial-accent{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#ccff00}
+.editorial-accent{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#f8fafc}
 
 /* ---------- WORK CARDS ---------- */
 .work-card{background:linear-gradient(145deg,#13131c,#0b0b12);border:1px solid rgba(255,255,255,.08);transition:transform .3s ease,border-color .3s ease,background .3s ease}
-.work-card:hover{border-color:rgba(204,255,0,.3);background:linear-gradient(145deg,#171724,#0e0e16);transform:translateY(-2px)}
+.work-card:hover{border-color:rgba(255,255,255,.2);background:linear-gradient(145deg,#171724,#0e0e16);transform:translateY(-2px)}
 
 /* ---------- SECTION HEADINGS ---------- */
 :root{--section-h2-size:clamp(1.5rem,1.2rem + 1.5vw,2.5rem)}
@@ -136,16 +117,22 @@ body.loaded{overflow:auto}
 }
 .loader-content{
   position:relative;z-index:20;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;
   margin:0;padding:0;line-height:0;
   transition:opacity .4s ease,transform .4s ease;
 }
 .loader-logo{
-  width:clamp(110px,18vw,150px);
+  width:clamp(84px,18vw,120px);
   height:auto;display:block;
   margin:0 auto;object-fit:contain;
   filter:drop-shadow(0 0 14px rgba(204,255,0,.35));
+  animation:loaderIn .7s cubic-bezier(.16,1,.3,1) both,loaderPulse 1.8s ease-in-out .7s infinite;
 }
+#pageLoader::before{animation:loaderGlow 3s ease-in-out infinite}
+@keyframes loaderIn{from{opacity:0;transform:translateY(14px) scale(.92)}to{opacity:1;transform:none}}
+@keyframes loaderPulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 10px rgba(204,255,0,.22))}50%{transform:scale(1.06);filter:drop-shadow(0 0 28px rgba(204,255,0,.6))}}
+@keyframes loaderGlow{0%,100%{transform:scale(1);opacity:.8}50%{transform:scale(1.35);opacity:1}}
+@media (prefers-reduced-motion:reduce){.loader-logo,#pageLoader::before{animation:none}}
 body.loaded .loader-content{opacity:0;transform:translateY(-20px)}
 body.loaded #pageLoader{transform:translateY(-100%);pointer-events:none}
 
@@ -162,11 +149,11 @@ body.loaded #pageLoader{transform:translateY(-100%);pointer-events:none}
 .animate-marquee{display:flex;width:max-content;animation:marquee 25s linear infinite}
 .animate-marquee:hover{animation-play-state:paused}
 
-.slts-client-marquee{position:relative;display:flex;align-items:center;width:100%;height:56px;min-height:56px;max-height:56px;margin:0;padding:0;overflow:hidden;border-radius:3px;background:rgba(204,255,0,.28);border:1px solid rgba(204,255,0,.22)}
+.slts-client-marquee{position:relative;display:flex;align-items:center;width:100%;height:56px;min-height:56px;max-height:56px;margin:0;padding:0;overflow:hidden;border-radius:3px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}
 .slts-client-marquee .service-marquee-track{display:flex;align-items:center;width:max-content;height:100%;flex-shrink:0;animation:marquee 26s linear infinite}
 .slts-client-marquee .service-marquee-track.animate-marquee-right{animation:marqueeRight 26s linear infinite}
 .slts-client-marquee .service-marquee-item{display:inline-flex;align-items:center;white-space:nowrap;margin:0 26px;color:#fff;font-size:12px;line-height:1;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-.slts-client-marquee .service-marquee-separator{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;margin:0 2px;color:#ccff00;font-size:14px;line-height:1;font-weight:900}
+.slts-client-marquee .service-marquee-separator{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;margin:0 2px;color:rgba(255,255,255,.35);font-size:14px;line-height:1;font-weight:900}
 .slts-client-marquee:hover .service-marquee-track{animation-play-state:paused}
 
 .slts-market-marquee{width:100%;overflow:hidden;background:#090a0d;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);padding:9px 0;display:grid;gap:7px}
@@ -177,16 +164,16 @@ body.loaded #pageLoader{transform:translateY(-100%);pointer-events:none}
 @keyframes sltsTickerLeft{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 @keyframes sltsTickerRight{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
 
-.slts-transition-marquee{width:100%;overflow:hidden;background:rgba(204,255,0,.28);border-top:1px solid rgba(204,255,0,.22);border-bottom:1px solid rgba(204,255,0,.22);height:56px;display:flex;align-items:center}
+.slts-transition-marquee{width:100%;overflow:hidden;background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);height:56px;display:flex;align-items:center}
 .slts-transition-track{width:max-content;display:flex;align-items:center;gap:0;white-space:nowrap;animation:sltsTransition 22s linear infinite;will-change:transform}
 .slts-transition-track span{display:inline-flex;align-items:center;white-space:nowrap;margin:0 22px;font-size:12px;font-weight:800;letter-spacing:.08em;color:#fff;text-transform:uppercase}
-.slts-transition-track b{display:inline-flex;align-items:center;justify-content:center;margin:0 2px;font-size:14px;color:#ccff00;line-height:1;font-weight:900}
+.slts-transition-track b{display:inline-flex;align-items:center;justify-content:center;margin:0 2px;font-size:14px;color:rgba(255,255,255,.35);line-height:1;font-weight:900}
 @keyframes sltsTransition{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 @media (hover:hover){.slts-market-marquee:hover .market-marquee-track,.slts-transition-marquee:hover .slts-transition-track{animation-play-state:paused}}
 
 /* ---------- ABOUT ---------- */
 #about svg{color:rgba(207,255,0,.95)}
-#about .stat-counter{--about-fill:0%;color:transparent!important;background:linear-gradient(90deg,#ccff00 0%,#ccff00 var(--about-fill),rgba(255,255,255,.7) var(--about-fill),rgba(255,255,255,.7) 100%);-webkit-background-clip:text;background-clip:text;transition:background .08s linear}
+#about .stat-counter{color:rgba(255,255,255,.9)!important}
 #about .about-stat-card{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:1.1rem .8rem 1rem;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
 #about .about-stat-card .text-white\/90{color:rgba(255,255,255,.78)!important}
 #about .about-stat-card .text-mutedText{opacity:.68}
@@ -194,11 +181,11 @@ body.loaded #pageLoader{transform:translateY(-100%);pointer-events:none}
 /* ---------- SERVICES ---------- */
 #services .slts-reference-selector{display:flex;align-items:center;gap:10px;width:100%;overflow-x:auto;overflow-y:hidden;padding:4px 2px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 #services .slts-reference-selector::-webkit-scrollbar{display:none}
-#services .slts-reference-selector .slts-service-pill{flex:0 0 auto;width:auto;min-height:46px;padding:11px 20px;border:1px solid rgba(204,255,0,.55);border-radius:999px;background:rgba(10,10,16,.7);color:#fff;white-space:nowrap;font-size:12px;cursor:pointer;transform:none;transition:background .25s ease,color .25s ease,border-color .25s ease}
+#services .slts-reference-selector .slts-service-pill{flex:0 0 auto;width:auto;min-height:46px;padding:11px 20px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(10,10,16,.7);color:#fff;white-space:nowrap;font-size:12px;cursor:pointer;transform:none;transition:background .25s ease,color .25s ease,border-color .25s ease}
 #services .slts-reference-selector .slts-service-pill:hover{transform:translateY(-2px)}
 #services .slts-reference-selector .slts-service-pill.is-selected{background:#cfff00;border-color:#cfff00;color:#07070b}
 #services .slts-reference-panel{width:100%;margin-top:10px}
-#services .slts-reference-panel .slts-service-detail{display:none;width:100%;margin-top:0;border:1px solid rgba(204,255,0,.24);border-radius:22px;background:linear-gradient(145deg,rgba(22,22,34,.98),rgba(10,10,15,.98));overflow:hidden}
+#services .slts-reference-panel .slts-service-detail{display:none;width:100%;margin-top:0;border:1px solid rgba(255,255,255,.1);border-radius:22px;background:linear-gradient(145deg,rgba(22,22,34,.98),rgba(10,10,15,.98));overflow:hidden}
 #services .slts-reference-panel .slts-service-detail.is-selected{display:block}
 #services .slts-reference-panel .slts-service-detail-inner{
   padding:clamp(20px,2.4vw,32px);
@@ -226,7 +213,7 @@ body.loaded #pageLoader{transform:translateY(-100%);pointer-events:none}
   width:55%;
   height:55%;
   opacity:.55;
-  color:#ccff00;
+  color:#fff;
   display:block;
 }
 #services .slts-service-media::after{
@@ -238,14 +225,14 @@ body.loaded #pageLoader{transform:translateY(-100%);pointer-events:none}
   font-weight:800;
   letter-spacing:.14em;
   text-transform:uppercase;
-  color:rgba(204,255,0,.75);
+  color:rgba(255,255,255,.55);
 }
 
-#services .slts-service-category{display:inline-block;margin:0 0 12px;color:#cfff00;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em}
+#services .slts-service-category{display:inline-block;margin:0 0 12px;color:#9ca3af;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.14em}
 #services .slts-service-description{margin:10px 0 18px;color:rgba(203,213,225,.78);font-size:clamp(.9rem,1.1vw,1rem);line-height:1.55;font-weight:600}
 #services .slts-service-features{margin:0;padding:12px 0 0;border-top:1px solid rgba(255,255,255,.08);list-style:none;display:grid;grid-template-columns:1fr;gap:18px}
 #services .slts-service-features li{display:grid;gap:5px;padding-left:18px;position:relative}
-#services .slts-service-features li::before{content:"";width:5px;height:5px;border-radius:50%;background:#cfff00;position:absolute;left:0;top:8px}
+#services .slts-service-features li::before{content:"";width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.45);position:absolute;left:0;top:8px}
 #services .slts-service-features strong{font-size:clamp(.88rem,1.1vw,.98rem);color:#fff;line-height:1.3}
 #services .slts-service-features span{font-size:clamp(.76rem,.95vw,.84rem);line-height:1.55;color:rgba(203,213,225,.7)}
 #services .slts-service-footer{margin-top:20px;padding-top:12px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.12em;color:rgba(203,213,225,.45)}
@@ -259,14 +246,14 @@ body.loaded #pageLoader{transform:translateY(-100%);pointer-events:none}
 #proof-of-work .slts-proof-panel .pow-category-block{display:none;width:100%;min-width:0;margin:0;padding:18px;border-radius:22px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));box-shadow:0 25px 70px rgba(0,0,0,.25);transition:transform .3s ease,border-color .3s ease}
 #proof-of-work .slts-proof-panel .pow-category-block.is-selected{display:flex;flex-direction:column}
 #proof-of-work .slts-proof-panel .pow-category-block > a{width:100%}
-#proof-of-work .slts-proof-panel .pow-category-block:hover{transform:translateY(-5px);border-color:rgba(204,255,0,.22)}
+#proof-of-work .slts-proof-panel .pow-category-block:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.2)}
 #proof-of-work .slts-proof-panel .pow-category-block img{border-radius:18px}
 #proof-of-work .slts-proof-panel .pow-category-block .pow-item-card{flex-direction:row;align-items:stretch}
 #proof-of-work .slts-proof-panel .pow-category-block .pow-item-card>div:first-child{width:46%;flex:0 0 46%}
 #proof-of-work .slts-proof-panel .pow-category-block .pow-item-card>div:nth-child(2){width:54%;flex:1 1 54%;padding:8px 4px}
 .pow-case-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:2px 0 4px}
 .pow-case-meta-label{font-size:8px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:rgba(203,213,225,.42)}
-.pow-case-meta span:not(.pow-case-meta-label){font-size:8px;font-weight:800;letter-spacing:.02em;color:#ccff00;background:rgba(204,255,0,.07);border:1px solid rgba(204,255,0,.16);padding:3px 7px;border-radius:999px}
+.pow-case-meta span:not(.pow-case-meta-label){font-size:8px;font-weight:800;letter-spacing:.02em;color:#cbd5e1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:3px 7px;border-radius:999px}
 
 /* ---------- WHY PARTNER — STATIC GREEN (no animation) ---------- */
 .why-partner-section{background:radial-gradient(circle at 18% 48%,rgba(204,255,0,.055),transparent 32%),linear-gradient(180deg,#101217,#111319)}
@@ -303,7 +290,7 @@ body.loaded #pageLoader{transform:translateY(-100%);pointer-events:none}
 .slts-testimonial-card{width:clamp(280px,32vw,460px);min-height:190px;flex:0 0 auto;padding:clamp(1.15rem,2vw,1.55rem);border:1px solid rgba(163,230,53,.18);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));display:flex;flex-direction:column;justify-content:space-between}
 .slts-testimonial-quote{margin:0;color:rgba(255,255,255,.82);font-size:clamp(.78rem,1vw,.95rem);line-height:1.65;font-weight:500}
 .slts-testimonial-person{display:flex;align-items:center;gap:.75rem;margin-top:1.25rem}
-.slts-testimonial-avatar{width:38px;height:38px;flex:0 0 38px;border-radius:50%;display:grid;place-items:center;background:rgba(163,230,53,.10);border:1px solid rgba(163,230,53,.22);color:#a3e635;font-size:.72rem;font-weight:800}
+.slts-testimonial-avatar{width:38px;height:38px;flex:0 0 38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#e5e7eb;font-size:.72rem;font-weight:800}
 .slts-testimonial-name{color:#fff;font-size:.82rem;line-height:1.2;font-weight:800}
 .slts-testimonial-role{color:rgba(203,213,225,.45);font-size:.68rem;line-height:1.3;margin-top:.2rem}
 .slts-testimonial-lane + .slts-testimonial-lane{margin-top:clamp(.85rem,2vw,1.35rem)}
@@ -351,7 +338,7 @@ body.loaded #pageLoader{transform:translateY(-100%);pointer-events:none}
 #why-partner{background:linear-gradient(180deg,rgba(7,7,11,.32) 0%,rgba(7,7,11,.44) 100%)}
 
 /* ---------- HEADER LOGO ---------- */
-header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
+header .glass-nav>a img{transform:none}
 
 /* =========================================================
    RESPONSIVE
@@ -423,8 +410,8 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
   section{padding-top:2.25rem;padding-bottom:2.25rem}
   #services,#proof-of-work{padding-top:3rem;padding-bottom:3.5rem}
   header{padding:10px 14px}
-  header .glass-nav{min-height:72px;padding:10px 16px;border-radius:34px}
-  header .glass-nav>a img{transform:scale(1.35);transform-origin:left center}
+  header .glass-nav{min-height:64px;padding:10px 18px;border-radius:34px}
+  header .glass-nav>a img{transform:none;height:26px}
   header .glass-nav .md\:hidden{padding:8px}
   header .glass-nav .md\:hidden svg{width:30px;height:30px}
   .hero-section{padding-top:92px;padding-bottom:30px}
@@ -524,23 +511,1892 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
   .slts-testimonial-lane .slts-testimonial-track{animation:none!important}
   .scroll-reveal,.reveal-on-scroll{opacity:1!important;transform:none!important;transition:none!important}
 }
+
+
+
+/* ---------- WHY PARTNER — OLIVE GLOW (matches Proof of Work card) + TIGHTER SPACING ---------- */
+#why-partner{background:radial-gradient(ellipse 75% 100% at 15% 50%,rgba(70,76,40,.95) 0%,rgba(58,62,36,.72) 45%,transparent 80%),radial-gradient(ellipse 75% 100% at 85% 50%,rgba(70,76,40,.95) 0%,rgba(58,62,36,.72) 45%,transparent 80%),linear-gradient(180deg,rgba(7,7,11,.32) 0%,rgba(7,7,11,.44) 100%)}
+#why-partner{padding-top:clamp(1.75rem,3vw,3rem);padding-bottom:clamp(1.75rem,3vw,3rem)}
+.why-partner-shell{gap:clamp(1.75rem,4.5vw,4.5rem)}
+.why-partner-copy h2{margin-bottom:1rem}
+.why-partner-copy .premium-lead{margin-bottom:1.5rem}
+#why-partner .why-points{gap:10px 24px}
+#why-partner .why-points article{padding:14px 0}
+#why-partner .why-points h3{margin:6px 0 4px}
+@media (max-width:850px){.why-partner-shell{gap:1.5rem}#why-partner .why-points{gap:2px}#why-partner .why-points article{padding:8px 0}}
+@media (max-width:767px){#why-partner{padding-top:1.75rem;padding-bottom:2rem}#why-partner .why-points article{padding:8px 0}}
+
+/* ---------- SCROLL REVEAL (fade up / slide in from sides) ---------- */
+.rv{opacity:0;transition:opacity .9s cubic-bezier(.16,1,.3,1) var(--rv-d,0s),transform .9s cubic-bezier(.16,1,.3,1) var(--rv-d,0s);will-change:opacity,transform}
+.rv-up{transform:translateY(34px)}
+.rv-left{transform:translateX(-56px)}
+.rv-right{transform:translateX(56px)}
+.rv.is-in{opacity:1;transform:none}
+@media (max-width:767px){.rv-left{transform:translateX(-32px)}.rv-right{transform:translateX(32px)}}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1!important;transform:none!important;transition:none!important}}
+.why-partner-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slts-fallback{display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#13131c,#0b0b12);color:#ccff00;font-weight:800;letter-spacing:-.03em}
+:focus-visible{outline:3px solid #ccff00;outline-offset:3px}
+</style>
+<style>/* Tailwind utilities (compiled) */*, ::before, ::after {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+
+::backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+
+/*
+! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com
+*/
+
+/*
+1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+*/
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  /* 1 */
+  border-width: 0;
+  /* 2 */
+  border-style: solid;
+  /* 2 */
+  border-color: #e5e7eb;
+  /* 2 */
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+/*
+1. Use a consistent sensible line-height in all browsers.
+2. Prevent adjustments of font size after orientation changes in iOS.
+3. Use a more readable tab size.
+4. Use the user's configured `sans` font-family by default.
+5. Use the user's configured `sans` font-feature-settings by default.
+6. Use the user's configured `sans` font-variation-settings by default.
+7. Disable tap highlights on iOS
+*/
+
+html,
+:host {
+  line-height: 1.5;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  -moz-tab-size: 4;
+  /* 3 */
+  -o-tab-size: 4;
+     tab-size: 4;
+  /* 3 */
+  font-family: "Plus Jakarta Sans", sans-serif;
+  /* 4 */
+  font-feature-settings: normal;
+  /* 5 */
+  font-variation-settings: normal;
+  /* 6 */
+  -webkit-tap-highlight-color: transparent;
+  /* 7 */
+}
+
+/*
+1. Remove the margin in all browsers.
+2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
+*/
+
+body {
+  margin: 0;
+  /* 1 */
+  line-height: inherit;
+  /* 2 */
+}
+
+/*
+1. Add the correct height in Firefox.
+2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+3. Ensure horizontal rules are visible by default.
+*/
+
+hr {
+  height: 0;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  border-top-width: 1px;
+  /* 3 */
+}
+
+/*
+Add the correct text decoration in Chrome, Edge, and Safari.
+*/
+
+abbr:where([title]) {
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+
+/*
+Remove the default font size and weight for headings.
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*
+Reset links to optimize for opt-in styling instead of opt-out.
+*/
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+/*
+Add the correct font weight in Edge and Safari.
+*/
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/*
+1. Use the user's configured `mono` font-family by default.
+2. Use the user's configured `mono` font-feature-settings by default.
+3. Use the user's configured `mono` font-variation-settings by default.
+4. Correct the odd `em` font sizing in all browsers.
+*/
+
+code,
+kbd,
+samp,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* 1 */
+  font-feature-settings: normal;
+  /* 2 */
+  font-variation-settings: normal;
+  /* 3 */
+  font-size: 1em;
+  /* 4 */
+}
+
+/*
+Add the correct font size in all browsers.
+*/
+
+small {
+  font-size: 80%;
+}
+
+/*
+Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+*/
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/*
+1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+3. Remove gaps between table borders by default.
+*/
+
+table {
+  text-indent: 0;
+  /* 1 */
+  border-color: inherit;
+  /* 2 */
+  border-collapse: collapse;
+  /* 3 */
+}
+
+/*
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+3. Remove default padding in all browsers.
+*/
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-feature-settings: inherit;
+  /* 1 */
+  font-variation-settings: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  font-weight: inherit;
+  /* 1 */
+  line-height: inherit;
+  /* 1 */
+  letter-spacing: inherit;
+  /* 1 */
+  color: inherit;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+  padding: 0;
+  /* 3 */
+}
+
+/*
+Remove the inheritance of text transform in Edge and Firefox.
+*/
+
+button,
+select {
+  text-transform: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Remove default button styles.
+*/
+
+button,
+input:where([type='button']),
+input:where([type='reset']),
+input:where([type='submit']) {
+  -webkit-appearance: button;
+  /* 1 */
+  background-color: transparent;
+  /* 2 */
+  background-image: none;
+  /* 2 */
+}
+
+/*
+Use the modern Firefox focus style for all focusable elements.
+*/
+
+:-moz-focusring {
+  outline: auto;
+}
+
+/*
+Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+*/
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+/*
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+
+progress {
+  vertical-align: baseline;
+}
+
+/*
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/*
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+
+[type='search'] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+
+/*
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to `inherit` in Safari.
+*/
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+
+/*
+Add the correct display in Chrome and Safari.
+*/
+
+summary {
+  display: list-item;
+}
+
+/*
+Removes the default spacing and border for appropriate elements.
+*/
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+ol,
+ul,
+menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+Reset default styling for dialogs.
+*/
+
+dialog {
+  padding: 0;
+}
+
+/*
+Prevent resizing textareas horizontally by default.
+*/
+
+textarea {
+  resize: vertical;
+}
+
+/*
+1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
+2. Set the default placeholder color to the user's configured gray 400 color.
+*/
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+  opacity: 1;
+  /* 1 */
+  color: #9ca3af;
+  /* 2 */
+}
+
+input::placeholder,
+textarea::placeholder {
+  opacity: 1;
+  /* 1 */
+  color: #9ca3af;
+  /* 2 */
+}
+
+/*
+Set the default cursor for buttons.
+*/
+
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
+/*
+Make sure disabled buttons don't get the pointer cursor.
+*/
+
+:disabled {
+  cursor: default;
+}
+
+/*
+1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+   This can trigger a poorly considered lint error in some tools but is included by design.
+*/
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  /* 1 */
+  vertical-align: middle;
+  /* 2 */
+}
+
+/*
+Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+*/
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make elements with the HTML hidden attribute stay hidden by default */
+
+[hidden]:where(:not([hidden="until-found"])) {
+  display: none;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.-top-3 {
+  top: -0.75rem;
+}
+
+.-top-32 {
+  top: -8rem;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
+.left-0 {
+  left: 0px;
+}
+
+.left-1\/2 {
+  left: 50%;
+}
+
+.right-0 {
+  right: 0px;
+}
+
+.right-3 {
+  right: 0.75rem;
+}
+
+.top-0 {
+  top: 0px;
+}
+
+.top-1\/2 {
+  top: 50%;
+}
+
+.z-0 {
+  z-index: 0;
+}
+
+.z-10 {
+  z-index: 10;
+}
+
+.z-20 {
+  z-index: 20;
+}
+
+.z-30 {
+  z-index: 30;
+}
+
+.z-50 {
+  z-index: 50;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-1 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.-mt-2 {
+  margin-top: -0.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.mt-3\.5 {
+  margin-top: 0.875rem;
+}
+
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+.\!grid {
+  display: grid !important;
+}
+
+.grid {
+  display: grid;
+}
+
+.hidden {
+  display: none;
+}
+
+.aspect-\[16\/9\] {
+  aspect-ratio: 16/9;
+}
+
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+.h-1\.5 {
+  height: 0.375rem;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
+.h-3 {
+  height: 0.75rem;
+}
+
+.h-3\.5 {
+  height: 0.875rem;
+}
+
+.h-4 {
+  height: 1rem;
+}
+
+.h-6 {
+  height: 1.5rem;
+}
+
+.h-8 {
+  height: 2rem;
+}
+
+.h-9 {
+  height: 2.25rem;
+}
+
+.h-\[200px\] {
+  height: 200px;
+}
+
+.h-\[450px\] {
+  height: 450px;
+}
+
+.h-\[clamp\(250px\2c 50vw\2c 500px\)\] {
+  height: clamp(250px, 50vw, 500px);
+}
+
+.h-full {
+  height: 100%;
+}
+
+.min-h-\[260px\] {
+  min-height: 260px;
+}
+
+.w-1\.5 {
+  width: 0.375rem;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.w-3 {
+  width: 0.75rem;
+}
+
+.w-3\.5 {
+  width: 0.875rem;
+}
+
+.w-4 {
+  width: 1rem;
+}
+
+.w-6 {
+  width: 1.5rem;
+}
+
+.w-9 {
+  width: 2.25rem;
+}
+
+.w-\[300px\] {
+  width: 300px;
+}
+
+.w-\[700px\] {
+  width: 700px;
+}
+
+.w-\[calc\(100\%-2rem\)\] {
+  width: calc(100% - 2rem);
+}
+
+.w-\[clamp\(250px\2c 50vw\2c 500px\)\] {
+  width: clamp(250px, 50vw, 500px);
+}
+
+.w-auto {
+  width: auto;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.max-w-3xl {
+  max-width: 48rem;
+}
+
+.max-w-\[180px\] {
+  max-width: 180px;
+}
+
+.max-w-\[600px\] {
+  max-width: 600px;
+}
+
+.max-w-xl {
+  max-width: 36rem;
+}
+
+.shrink-0 {
+  flex-shrink: 0;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.origin-left {
+  transform-origin: left;
+}
+
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.-translate-y-1\/2 {
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.-rotate-1 {
+  --tw-rotate: -1deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+.select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.resize {
+  resize: both;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.items-start {
+  align-items: flex-start;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-0\.5 {
+  gap: 0.125rem;
+}
+
+.gap-1 {
+  gap: 0.25rem;
+}
+
+.gap-1\.5 {
+  gap: 0.375rem;
+}
+
+.gap-10 {
+  gap: 2.5rem;
+}
+
+.gap-12 {
+  gap: 3rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-3\.5 {
+  gap: 0.875rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-8 {
+  gap: 2rem;
+}
+
+.gap-\[clamp\(0\.7rem\2c 1\.4vw\2c 1\.5rem\)\] {
+  gap: clamp(0.7rem, 1.4vw, 1.5rem);
+}
+
+.gap-x-4 {
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+}
+
+.gap-y-8 {
+  row-gap: 2rem;
+}
+
+.space-y-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+
+.space-y-1\.5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.375rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.375rem * var(--tw-space-y-reverse));
+}
+
+.space-y-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-visible {
+  overflow: visible;
+}
+
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
+.rounded-2xl {
+  border-radius: 1rem;
+}
+
+.rounded-\[0\.3em\] {
+  border-radius: 0.3em;
+}
+
+.rounded-\[6\%\] {
+  border-radius: 6%;
+}
+
+.rounded-\[8\%\] {
+  border-radius: 8%;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.rounded-md {
+  border-radius: 0.375rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.border-y {
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+
+.border-b {
+  border-bottom-width: 1px;
+}
+
+.border-\[\#ccff00\]\/20 {
+  border-color: rgb(204 255 0 / 0.2);
+}
+
+.border-white\/10 {
+  border-color: rgb(255 255 255 / 0.1);
+}
+
+.border-white\/15 {
+  border-color: rgb(255 255 255 / 0.15);
+}
+
+.border-white\/5 {
+  border-color: rgb(255 255 255 / 0.05);
+}
+
+.bg-\[\#070708\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(7 7 8 / var(--tw-bg-opacity, 1));
+}
+
+.bg-\[\#ccff00\]\/10 {
+  background-color: rgb(204 255 0 / 0.1);
+}
+
+.bg-background {
+  --tw-bg-opacity: 1;
+  background-color: rgb(7 7 11 / var(--tw-bg-opacity, 1));
+}
+
+.bg-black\/40 {
+  background-color: rgb(0 0 0 / 0.4);
+}
+
+.bg-black\/50 {
+  background-color: rgb(0 0 0 / 0.5);
+}
+
+.bg-limeAccent {
+  --tw-bg-opacity: 1;
+  background-color: rgb(204 255 0 / var(--tw-bg-opacity, 1));
+}
+
+.bg-surface {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 17 24 / var(--tw-bg-opacity, 1));
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
+
+.bg-violet-600\/20 {
+  background-color: rgb(124 58 237 / 0.2);
+}
+
+.bg-white\/20 {
+  background-color: rgb(255 255 255 / 0.2);
+}
+
+.bg-white\/5 {
+  background-color: rgb(255 255 255 / 0.05);
+}
+
+.bg-white\/\[0\.025\] {
+  background-color: rgb(255 255 255 / 0.025);
+}
+
+.bg-white\/\[0\.03\] {
+  background-color: rgb(255 255 255 / 0.03);
+}
+
+.bg-gradient-to-l {
+  background-image: linear-gradient(to left, var(--tw-gradient-stops));
+}
+
+.bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+}
+
+.from-\[\#0a080e\] {
+  --tw-gradient-from: #0a080e var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(10 8 14 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.to-transparent {
+  --tw-gradient-to: transparent var(--tw-gradient-to-position);
+}
+
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.object-center {
+  -o-object-position: center;
+     object-position: center;
+}
+
+.object-top {
+  -o-object-position: top;
+     object-position: top;
+}
+
+.p-2 {
+  padding: 0.5rem;
+}
+
+.p-3 {
+  padding: 0.75rem;
+}
+
+.p-3\.5 {
+  padding: 0.875rem;
+}
+
+.p-4 {
+  padding: 1rem;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.px-6 {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.px-7 {
+  padding-left: 1.75rem;
+  padding-right: 1.75rem;
+}
+
+.px-\[0\.3em\] {
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+}
+
+.px-\[clamp\(0\.625rem\2c 1\.5vw\2c 1\.75rem\)\] {
+  padding-left: clamp(0.625rem, 1.5vw, 1.75rem);
+  padding-right: clamp(0.625rem, 1.5vw, 1.75rem);
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.py-1\.5 {
+  padding-top: 0.375rem;
+  padding-bottom: 0.375rem;
+}
+
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.py-3\.5 {
+  padding-top: 0.875rem;
+  padding-bottom: 0.875rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.py-\[0\.1em\] {
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+
+.pb-1 {
+  padding-bottom: 0.25rem;
+}
+
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
+.pl-0 {
+  padding-left: 0px;
+}
+
+.pr-12 {
+  padding-right: 3rem;
+}
+
+.pt-0\.5 {
+  padding-top: 0.125rem;
+}
+
+.pt-1 {
+  padding-top: 0.25rem;
+}
+
+.pt-3 {
+  padding-top: 0.75rem;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.align-baseline {
+  vertical-align: baseline;
+}
+
+.font-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.font-sans {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.text-\[0\.7em\] {
+  font-size: 0.7em;
+}
+
+.text-\[10px\] {
+  font-size: 10px;
+}
+
+.text-\[11px\] {
+  font-size: 11px;
+}
+
+.text-\[15px\] {
+  font-size: 15px;
+}
+
+.text-\[7px\] {
+  font-size: 7px;
+}
+
+.text-\[9px\] {
+  font-size: 9px;
+}
+
+.text-\[clamp\(0\.55rem\2c 0\.7vw\2c 0\.72rem\)\] {
+  font-size: clamp(0.55rem, 0.7vw, 0.72rem);
+}
+
+.text-\[clamp\(0\.875rem\2c 1vw\+0\.8rem\2c 1\.125rem\)\] {
+  font-size: clamp(0.875rem, 1vw + 0.8rem, 1.125rem);
+}
+
+.text-\[clamp\(1\.5rem\2c 3\.5vw\+0\.5rem\2c 3\.75rem\)\] {
+  font-size: clamp(1.5rem, 3.5vw + 0.5rem, 3.75rem);
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.font-black {
+  font-weight: 900;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-extrabold {
+  font-weight: 800;
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.leading-none {
+  line-height: 1;
+}
+
+.leading-relaxed {
+  line-height: 1.625;
+}
+
+.leading-tight {
+  line-height: 1.25;
+}
+
+.tracking-\[0\.08em\] {
+  letter-spacing: 0.08em;
+}
+
+.tracking-\[0\.2em\] {
+  letter-spacing: 0.2em;
+}
+
+.tracking-tight {
+  letter-spacing: -0.025em;
+}
+
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+.tracking-widest {
+  letter-spacing: 0.1em;
+}
+
+.text-\[\#a3e635\]\/60 {
+  color: rgb(163 230 53 / 0.6);
+}
+
+.text-\[\#ccff00\] {
+  --tw-text-opacity: 1;
+  color: rgb(204 255 0 / var(--tw-text-opacity, 1));
+}
+
+.text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+
+.text-limeAccent {
+  --tw-text-opacity: 1;
+  color: rgb(204 255 0 / var(--tw-text-opacity, 1));
+}
+
+.text-limeAccent\/80 {
+  color: rgb(204 255 0 / 0.8);
+}
+
+.text-mutedText {
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity, 1));
+}
+
+.text-pink-400 {
+  --tw-text-opacity: 1;
+  color: rgb(244 114 182 / var(--tw-text-opacity, 1));
+}
+
+.text-silverText\/20 {
+  color: rgb(203 213 225 / 0.2);
+}
+
+.text-silverText\/40 {
+  color: rgb(203 213 225 / 0.4);
+}
+
+.text-silverText\/50 {
+  color: rgb(203 213 225 / 0.5);
+}
+
+.text-silverText\/60 {
+  color: rgb(203 213 225 / 0.6);
+}
+
+.text-silverText\/65 {
+  color: rgb(203 213 225 / 0.65);
+}
+
+.text-silverText\/75 {
+  color: rgb(203 213 225 / 0.75);
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.text-white\/30 {
+  color: rgb(255 255 255 / 0.3);
+}
+
+.text-white\/90 {
+  color: rgb(255 255 255 / 0.9);
+}
+
+.opacity-50 {
+  opacity: 0.5;
+}
+
+.opacity-85 {
+  opacity: 0.85;
+}
+
+.shadow-2xl {
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-\[0_25px_80px_rgba\(0\2c 0\2c 0\2c 0\.9\)\] {
+  --tw-shadow: 0 25px 80px rgba(0,0,0,0.9);
+  --tw-shadow-colored: 0 25px 80px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-lg {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shadow-md {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.ring {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.blur-\[100px\] {
+  --tw-blur: blur(100px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.blur-\[120px\] {
+  --tw-blur: blur(120px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.blur-\[140px\] {
+  --tw-blur: blur(140px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.brightness-200 {
+  --tw-brightness: brightness(2);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.contrast-200 {
+  --tw-contrast: contrast(2);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.grayscale {
+  --tw-grayscale: grayscale(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.backdrop-blur-md {
+  --tw-backdrop-blur: blur(12px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+.backdrop-blur-sm {
+  --tw-backdrop-blur: blur(4px);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.\[text-wrap\:balance\] {
+  text-wrap: balance;
+}
+
+.\[text-wrap\:pretty\] {
+  text-wrap: pretty;
+}
+
+.hover\:border-\[\#ccff00\]\/50:hover {
+  border-color: rgb(204 255 0 / 0.5);
+}
+
+.hover\:border-limeAccent\/50:hover {
+  border-color: rgb(204 255 0 / 0.5);
+}
+
+.hover\:bg-\[\#b3e600\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(179 230 0 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-limeAccent\/90:hover {
+  background-color: rgb(204 255 0 / 0.9);
+}
+
+.hover\:text-limeAccent:hover {
+  --tw-text-opacity: 1;
+  color: rgb(204 255 0 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.hover\:opacity-100:hover {
+  opacity: 1;
+}
+
+.hover\:shadow-\[0_0_25px_rgba\(204\2c 255\2c 0\2c 0\.15\)\]:hover {
+  --tw-shadow: 0 0 25px rgba(204,255,0,0.15);
+  --tw-shadow-colored: 0 0 25px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.hover\:grayscale-0:hover {
+  --tw-grayscale: grayscale(0);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.group:hover .group-hover\:scale-105 {
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.group:hover .group-hover\:opacity-100 {
+  opacity: 1;
+}
+
+@media (min-width: 640px) {
+  .sm\:mb-7 {
+    margin-bottom: 1.75rem;
+  }
+
+  .sm\:mb-8 {
+    margin-bottom: 2rem;
+  }
+
+  .sm\:h-8 {
+    height: 2rem;
+  }
+
+  .sm\:h-\[300px\] {
+    height: 300px;
+  }
+
+  .sm\:w-28 {
+    width: 7rem;
+  }
+
+  .sm\:w-\[500px\] {
+    width: 500px;
+  }
+
+  .sm\:w-\[calc\(100\%-4rem\)\] {
+    width: calc(100% - 4rem);
+  }
+
+  .sm\:w-auto {
+    width: auto;
+  }
+
+  .sm\:flex-row {
+    flex-direction: row;
+  }
+
+  .sm\:gap-10 {
+    gap: 2.5rem;
+  }
+
+  .sm\:gap-20 {
+    gap: 5rem;
+  }
+
+  .sm\:gap-x-8 {
+    -moz-column-gap: 2rem;
+         column-gap: 2rem;
+  }
+
+  .sm\:gap-y-10 {
+    row-gap: 2.5rem;
+  }
+
+  .sm\:space-y-6 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+  }
+
+  .sm\:py-14 {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .sm\:py-5 {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .sm\:pr-20 {
+    padding-right: 5rem;
+  }
+
+  .sm\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  .sm\:text-\[11px\] {
+    font-size: 11px;
+  }
+
+  .sm\:text-\[17px\] {
+    font-size: 17px;
+  }
+
+  .sm\:text-\[8px\] {
+    font-size: 8px;
+  }
+
+  .sm\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .sm\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .sm\:text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+
+  .sm\:blur-\[140px\] {
+    --tw-blur: blur(140px);
+    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:flex {
+    display: flex;
+  }
+
+  .md\:hidden {
+    display: none;
+  }
+
+  .md\:py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:col-span-6 {
+    grid-column: span 6 / span 6;
+  }
+
+  .lg\:mb-10 {
+    margin-bottom: 2.5rem;
+  }
+
+  .lg\:w-\[600px\] {
+    width: 600px;
+  }
+
+  .lg\:grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lg\:gap-12 {
+    gap: 3rem;
+  }
+
+  .lg\:gap-16 {
+    gap: 4rem;
+  }
+
+  .lg\:py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .lg\:pl-6 {
+    padding-left: 1.5rem;
+  }
+
+  .lg\:text-5xl {
+    font-size: 3rem;
+    line-height: 1;
+  }
+}
+
 </style>
 </head>
 <body class="loading">
 
 <div id="pageLoader">
   <div class="loader-content">
-    <img alt="SLTS Labs" class="loader-logo" src="logo.png"/>
+    <img alt="SLTS Labs" class="loader-logo" src="logo1.png"/>
   </div>
 </div>
+
 
 <canvas id="spaceCanvas"></canvas>
 
 <header class="fixed top-0 left-0 w-full z-50 py-4 px-[clamp(0.625rem,1.5vw,1.75rem)]">
   <nav class="glass-nav rounded-full w-full px-6 py-3.5 flex items-center justify-between shadow-2xl">
     <a class="flex items-center" href="#">
-      <div class="h-8 flex items-center overflow-visible">
-        <img alt="sltslabs logo" class="h-10 w-auto object-contain origin-left" src="logo.png"/>
+      <div class="h-8 flex items-center">
+        <img alt="sltslabs logo" class="h-8 w-auto object-contain" src="logo1.png"/>
       </div>
     </a>
     <div class="hidden md:flex items-center justify-end gap-[clamp(0.7rem,1.4vw,1.5rem)] ml-auto text-[clamp(0.55rem,0.7vw,0.72rem)] tracking-[0.08em] uppercase font-semibold text-mutedText whitespace-nowrap">
@@ -574,29 +2430,29 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center relative z-20 w-full">
         <div class="flex flex-col items-center text-center w-full">
           <div class="w-full mb-6">
-            <h2 class="font-extrabold text-white leading-tight tracking-tight text-[clamp(1.5rem,3.5vw+0.5rem,3.75rem)] [text-wrap:balance]">
-              <span class="text-white/90 font-medium">Your next best </span>
+            <h2 class="hero-motion-title font-extrabold text-white leading-tight tracking-tight text-[clamp(1.5rem,3.5vw+0.5rem,3.75rem)] [text-wrap:balance]">
+              <span class="text-white/90 font-medium whitespace-nowrap">Your next best</span><br/>
               <span class="inline-flex items-center gap-1.5 bg-limeAccent text-black px-[0.3em] py-[0.1em] rounded-[0.3em] font-black align-baseline -rotate-1 shadow-md my-1">
                 Marketing <span class="text-[0.7em] leading-none">⤵</span>
-              </span><br class="hidden lg:block"/><span class="text-white">Decision starts here.</span>
+              </span><br/><span class="text-white">Decision starts here.</span>
             </h2>
           </div>
-          <p class="text-[clamp(0.875rem,1vw+0.8rem,1.125rem)] text-silverText/75 max-w-xl font-normal leading-relaxed -mt-2 mb-6 text-center mx-auto [text-wrap:pretty]">
+          <p class="hero-motion-copy text-[clamp(0.875rem,1vw+0.8rem,1.125rem)] text-silverText/75 max-w-xl font-normal leading-relaxed -mt-2 mb-6 text-center mx-auto [text-wrap:pretty]">
             We design and execute growth campaigns that connect your project with the right audiences, amplify visibility, and drive measurable results.
           </p>
-          <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
+          <div class="hero-motion-actions flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto">
             <a class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-limeAccent text-black font-extrabold text-xs uppercase tracking-widest hover:bg-[#b3e600] transition-all shadow-lg text-center" href="#contact">Start a Campaign →</a>
             <a class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-surface border border-white/10 text-white font-bold text-xs uppercase tracking-widest hover:border-limeAccent/50 transition-all text-center" href="#proof-of-work">View Our Work</a>
           </div>
         </div>
-        <div class="flex justify-center items-center w-full relative">
+        <div class="hero-motion-media flex justify-center items-center w-full relative">
           <div class="w-full max-w-[600px] relative">
             <div class="absolute -top-3 right-3 bg-limeAccent text-black font-extrabold text-[10px] px-3 py-1 rounded-full uppercase tracking-widest shadow-2xl flex items-center gap-1 z-30 animate-bounce">
               <span>Watch</span><span>↓</span>
             </div>
             <div class="work-card rounded-[8%] p-3 relative shadow-[0_25px_80px_rgba(0,0,0,0.9)] border border-white/15 bg-surface">
               <div class="w-full aspect-video rounded-[6%] border border-white/10 relative overflow-hidden bg-background">
-                <video autoplay="" class="w-full h-full object-cover" controls="" loop="" muted="" playsinline="" src="vid.mp4"></video>
+                <video autoplay="" class="w-full h-full object-cover" controls="" loop="" muted="" playsinline="" poster="vid-poster.jpg" preload="metadata" src="vid.mp4"></video>
               </div>
               <div class="pt-3 px-2 flex items-center justify-between gap-4 text-left">
                 <div>
@@ -613,50 +2469,34 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
   </section>
 
   <!-- MARKET MARQUEE -->
-  <div aria-label="SLTS Labs services" class="slts-market-marquee">
-    <div class="market-marquee-row">
-      <div class="market-marquee-track">
-        <span class="market-pill">Content Marketing</span><span class="market-pill">Social Media Marketing</span><span class="market-pill">Influencer Marketing</span><span class="market-pill">Community Campaigns</span><span class="market-pill">KOL Partnerships</span><span class="market-pill">Web3 Marketing</span>
-        <span class="market-pill">Content Marketing</span><span class="market-pill">Social Media Marketing</span><span class="market-pill">Influencer Marketing</span><span class="market-pill">Community Campaigns</span><span class="market-pill">KOL Partnerships</span><span class="market-pill">Web3 Marketing</span>
-      </div>
-    </div>
-    <div class="market-marquee-row">
-      <div class="market-marquee-track market-right">
-        <span class="market-pill">Growth Strategy</span><span class="market-pill">Community Management</span><span class="market-pill">Brand Positioning</span><span class="market-pill">Campaign Execution</span><span class="market-pill">Creative &amp; Design</span><span class="market-pill">Web3 Growth</span>
-        <span class="market-pill">Growth Strategy</span><span class="market-pill">Community Management</span><span class="market-pill">Brand Positioning</span><span class="market-pill">Campaign Execution</span><span class="market-pill">Creative &amp; Design</span><span class="market-pill">Web3 Growth</span>
-      </div>
-    </div>
-  </div>
+  
 
   <!-- ABOUT -->
   <section class="reveal-on-scroll w-full relative z-20 overflow-hidden" id="about">
     <div class="site-container">
       <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] lg:w-[600px] h-[200px] sm:h-[300px] bg-white/5 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none z-0"></div>
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16 items-center relative z-10">
-        <div class="lg:col-span-6 space-y-4 sm:space-y-6">
-          <h2 class="section-h2 text-white tracking-tight mb-2 sm:mb-4 text-center lg:text-left">About <span class="h2-highlight">Us</span></h2>
-          <p class="text-[15px] sm:text-[17px] font-bold text-silverText/60 leading-relaxed text-left">SLTS Labs is a Web3 marketing agency helping crypto projects grow their brand, community, and reach.</p>
-          <p class="text-[15px] sm:text-[17px] font-bold text-silverText/60 leading-relaxed text-left">We help projects build visibility, attract the right audience, and turn attention into real growth. From marketing campaigns and community management to content, web design, and KOL partnerships, we provide the support projects need to grow in Web3.</p>
-          <p class="text-[15px] sm:text-[17px] font-bold text-silverText/60 leading-relaxed text-left">Our mission is simple: help good Web3 projects get seen, build strong communities, and grow with the right strategy and execution.</p>
+        <div class="lg:col-span-6 space-y-4 sm:space-y-6"><h2 class="section-h2 font-extrabold text-white text-left">Marketing built to grow <span class="h2-highlight">Web3 projects</span></h2>
+          <p class="text-[15px] sm:text-[17px] font-bold text-silverText/60 leading-relaxed text-left">Trusted by 20k+ clients worldwide since 2022</p>
         </div>
         <div class="lg:col-span-6 grid grid-cols-2 gap-y-8 sm:gap-y-10 gap-x-4 sm:gap-x-8 pl-0 lg:pl-6 text-center">
           <div class="about-stat-card space-y-1 flex flex-col items-center justify-center">
-            <span class="stat-counter text-3xl sm:text-4xl lg:text-5xl font-extrabold font-sans tracking-tight block" data-suffix="+" data-target="3">0</span>
+            <span class="stat-counter text-3xl sm:text-4xl lg:text-5xl font-extrabold font-sans tracking-tight block" data-suffix="+" data-target="3">3+</span>
             <span class="text-xs sm:text-sm text-white/90 font-semibold uppercase tracking-wider block pt-1">Years Experience</span>
             <span class="text-[11px] text-mutedText font-light block">Full-stack digital &amp; Web3 marketing</span>
           </div>
           <div class="about-stat-card space-y-1 flex flex-col items-center justify-center">
-            <span class="stat-counter text-3xl sm:text-4xl lg:text-5xl font-extrabold font-sans tracking-tight block" data-suffix="+" data-target="40">0</span>
+            <span class="stat-counter text-3xl sm:text-4xl lg:text-5xl font-extrabold font-sans tracking-tight block" data-suffix="+" data-target="40">40+</span>
             <span class="text-xs sm:text-sm text-white/90 font-semibold uppercase tracking-wider block pt-1">Campaigns</span>
             <span class="text-[11px] text-mutedText font-light block">Executed across major ecosystems</span>
           </div>
           <div class="about-stat-card space-y-1 flex flex-col items-center justify-center">
-            <span class="stat-counter text-3xl sm:text-4xl lg:text-5xl font-extrabold font-sans tracking-tight block" data-suffix="+" data-target="30">0</span>
+            <span class="stat-counter text-3xl sm:text-4xl lg:text-5xl font-extrabold font-sans tracking-tight block" data-suffix="+" data-target="30">30+</span>
             <span class="text-xs sm:text-sm text-white/90 font-semibold uppercase tracking-wider block pt-1">KOL Network</span>
             <span class="text-[11px] text-mutedText font-light block">Vetted crypto creators &amp; ambassadors</span>
           </div>
           <div class="about-stat-card space-y-1 flex flex-col items-center justify-center">
-            <span class="stat-counter text-3xl sm:text-4xl lg:text-5xl font-extrabold font-sans tracking-tight block" data-suffix="%" data-target="98">0</span>
+            <span class="stat-counter text-3xl sm:text-4xl lg:text-5xl font-extrabold font-sans tracking-tight block" data-suffix="%" data-target="98">98%</span>
             <span class="text-xs sm:text-sm text-white/90 font-semibold uppercase tracking-wider block pt-1">Client Retention</span>
             <span class="text-[11px] text-mutedText font-light block">Long-term strategic growth partners</span>
           </div>
@@ -666,22 +2506,7 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
   </section>
 
   <!-- SERVICES MARQUEE -->
-  <div aria-label="SLTS Labs services" class="slts-client-marquee">
-    <div class="service-marquee-track animate-marquee-right">
-      <span class="service-marquee-item">Content Marketing</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Social Media Marketing</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Influencer Marketing</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Community Campaigns</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">KOL Partnerships</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Web3 Marketing</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Content Marketing</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Social Media Marketing</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Influencer Marketing</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Community Campaigns</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">KOL Partnerships</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Web3 Marketing</span><span class="service-marquee-separator">✦</span>
-    </div>
-  </div>
+  
 
   <!-- SERVICES -->
   <section class="reveal-on-scroll relative z-20 overflow-hidden" id="services">
@@ -816,7 +2641,7 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
                 <span class="slts-service-category">Web Design &amp; Development</span>
                 <p class="slts-service-description">We design and build websites that give projects a professional online presence.</p>
                 <ul class="slts-service-features">
-                  <li><strong>Project Websites</strong><span>We design Full-stack development for meme &amp; utility projects.</span></li>
+                  <li><strong>Project Websites</strong><span>We design and build full-stack websites for meme &amp; utility projects.</span></li>
                   <li><strong>Landing Pages</strong><span>We create focused one page websites for products, launches, and campaigns.</span></li>
                   <li><strong>Website Redesigns</strong><span>We improve existing websites with a cleaner, more professional presentation.</span></li>
                 </ul>
@@ -894,18 +2719,7 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
   </section>
 
   <!-- SERVICES MARQUEE 2 -->
-  <div aria-label="SLTS Labs services" class="slts-client-marquee">
-    <div class="service-marquee-track">
-      <span class="service-marquee-item">Campaigns</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Websites</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Creative &amp; Content</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Growth Initiatives</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Campaigns</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Websites</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Creative &amp; Content</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Growth Initiatives</span><span class="service-marquee-separator">✦</span>
-    </div>
-  </div>
+  
 
   <!-- PROOF OF WORK -->
   <section class="slts-premium-section w-full relative z-20 py-10 sm:py-14 md:py-16 overflow-hidden backdrop-blur-sm" id="proof-of-work">
@@ -948,13 +2762,13 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
                   <div class="grid grid-cols-4 gap-1.5 py-2 border-y border-white/10 my-1">
                     <div class="bg-black/40 border border-white/5 rounded-lg py-1.5 text-center"><div class="text-[11px] sm:text-xs font-black text-white">3K</div><div class="text-[7px] sm:text-[8px] font-bold text-silverText/60 uppercase">X USERS</div></div>
                     <div class="bg-black/40 border border-white/5 rounded-lg py-1.5 text-center"><div class="text-[11px] sm:text-xs font-black text-white">700+</div><div class="text-[7px] sm:text-[8px] font-bold text-silverText/60 uppercase">TG MEMBERS</div></div>
-                    <div class="bg-black/40 border border-white/5 rounded-lg py-1.5 text-center"><div class="text-[11px] sm:text-xs font-black text-[#ccff00]">80%</div><div class="text-[7px] sm:text-[8px] font-bold text-silverText/60 uppercase">VISIBILITY</div></div>
+                    <div class="bg-black/40 border border-white/5 rounded-lg py-1.5 text-center"><div class="text-[11px] sm:text-xs font-black text-white">80%</div><div class="text-[7px] sm:text-[8px] font-bold text-silverText/60 uppercase">VISIBILITY</div></div>
                     <div class="bg-black/40 border border-white/5 rounded-lg py-1.5 text-center"><div class="text-[11px] sm:text-xs font-black text-white">70%</div><div class="text-[7px] sm:text-[8px] font-bold text-silverText/60 uppercase">RETENTION</div></div>
                   </div>
                   <div class="flex flex-wrap gap-1.5">
-                    <span class="text-[9px] font-bold bg-[#ccff00]/10 border border-[#ccff00]/20 text-[#ccff00] px-2 py-0.5 rounded-md">Shill Raids</span>
-                    <span class="text-[9px] font-bold bg-[#ccff00]/10 border border-[#ccff00]/20 text-[#ccff00] px-2 py-0.5 rounded-md">Telegram</span>
-                    <span class="text-[9px] font-bold bg-[#ccff00]/10 border border-[#ccff00]/20 text-[#ccff00] px-2 py-0.5 rounded-md">X Growth</span>
+                    <span class="text-[9px] font-bold bg-white/5 border border-white/10 text-gray-300 px-2 py-0.5 rounded-md">Shill Raids</span>
+                    <span class="text-[9px] font-bold bg-white/5 border border-white/10 text-gray-300 px-2 py-0.5 rounded-md">Telegram</span>
+                    <span class="text-[9px] font-bold bg-white/5 border border-white/10 text-gray-300 px-2 py-0.5 rounded-md">X Growth</span>
                   </div>
                   <div class="text-[10px] font-bold text-silverText/60 pt-1">Duration: 3 weeks</div>
                 </div>
@@ -972,7 +2786,7 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
               </div>
               <div class="pow-item-card bg-white/[0.03] backdrop-blur-md border border-white/10 hover:border-[#ccff00]/50 hover:shadow-[0_0_25px_rgba(204,255,0,0.15)] rounded-2xl p-3.5 sm:p-4.5 transition-all duration-300 group text-left flex gap-3.5 items-stretch">
                 <div class="aspect-[16/9] rounded-xl overflow-hidden border border-white/10 bg-black/50 relative shrink-0">
-                  <img alt="TompoloCoin Site Preview" class="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300" loading="lazy" src="https://api.microlink.io/?url=https%3A%2F%2Ftompololagacy.github.io%2FTompolocoin%2Findex.html&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
+                  <img alt="TompoloCoin Site Preview" class="w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300" onerror="this.style.visibility='hidden'" loading="lazy" src="https://api.microlink.io/?url=https%3A%2F%2Ftompololagacy.github.io%2FTompolocoin%2Findex.html&amp;screenshot=true&amp;meta=false&amp;embed=screenshot.url"/>
                 </div>
                 <div class="flex flex-col justify-center space-y-1.5">
                   <div class="flex items-start justify-between gap-1.5">
@@ -983,16 +2797,16 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
                   <div class="pow-case-meta"><span class="pow-case-meta-label">What we handled</span><span>Web Design</span><span>Landing Page</span><span>Web3</span></div>
                   <p class="text-[11px] sm:text-xs font-bold text-silverText/60 leading-relaxed pt-0.5 pb-1">Official portal honoring the Tompolo legacy on Solana. Built with fair launch tokenomics, live DEX embeds, CA copy utilities, and community links.</p>
                   <div class="grid grid-cols-4 gap-1.5 py-2 border-y border-white/10 my-1">
-                    <div class="bg-black/40 border border-white/5 rounded-lg py-1.5 text-center"><div class="text-[11px] sm:text-xs font-black text-[#ccff00]">100%</div><div class="text-[7px] sm:text-[8px] font-bold text-silverText/60 uppercase">FAIR LAUNCH</div></div>
+                    <div class="bg-black/40 border border-white/5 rounded-lg py-1.5 text-center"><div class="text-[11px] sm:text-xs font-black text-white">100%</div><div class="text-[7px] sm:text-[8px] font-bold text-silverText/60 uppercase">FAIR LAUNCH</div></div>
                     <div class="bg-black/40 border border-white/5 rounded-lg py-1.5 text-center"><div class="text-[11px] sm:text-xs font-black text-white">1B</div><div class="text-[7px] sm:text-[8px] font-bold text-silverText/60 uppercase">SUPPLY</div></div>
                     <div class="bg-black/40 border border-white/5 rounded-lg py-1.5 text-center"><div class="text-[11px] sm:text-xs font-black text-white">0%</div><div class="text-[7px] sm:text-[8px] font-bold text-silverText/60 uppercase">TAX</div></div>
                     <div class="bg-black/40 border border-white/5 rounded-lg py-1.5 text-center"><div class="text-[11px] sm:text-xs font-black text-white">SOL</div><div class="text-[7px] sm:text-[8px] font-bold text-silverText/60 uppercase">CHAIN</div></div>
                   </div>
                   <div class="flex flex-wrap gap-1.5">
-                    <span class="text-[9px] font-bold bg-[#ccff00]/10 border border-[#ccff00]/20 text-[#ccff00] px-2 py-0.5 rounded-md">HTML5/CSS3</span>
-                    <span class="text-[9px] font-bold bg-[#ccff00]/10 border border-[#ccff00]/20 text-[#ccff00] px-2 py-0.5 rounded-md">Solana</span>
-                    <span class="text-[9px] font-bold bg-[#ccff00]/10 border border-[#ccff00]/20 text-[#ccff00] px-2 py-0.5 rounded-md">DexScreener</span>
-                    <span class="text-[9px] font-bold bg-[#ccff00]/10 border border-[#ccff00]/20 text-[#ccff00] px-2 py-0.5 rounded-md">Clipboard API</span>
+                    <span class="text-[9px] font-bold bg-white/5 border border-white/10 text-gray-300 px-2 py-0.5 rounded-md">HTML5/CSS3</span>
+                    <span class="text-[9px] font-bold bg-white/5 border border-white/10 text-gray-300 px-2 py-0.5 rounded-md">Solana</span>
+                    <span class="text-[9px] font-bold bg-white/5 border border-white/10 text-gray-300 px-2 py-0.5 rounded-md">DexScreener</span>
+                    <span class="text-[9px] font-bold bg-white/5 border border-white/10 text-gray-300 px-2 py-0.5 rounded-md">Clipboard API</span>
                   </div>
                   <div class="text-[10px] font-bold text-silverText/60 flex items-center gap-1.5 pt-1"><svg class="w-3 h-3 text-limeAccent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg> Shipped Q3</div>
                 </div>
@@ -1066,27 +2880,12 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
   </section>
 
   <!-- SERVICES MARQUEE 3 -->
-  <div aria-label="SLTS Labs services" class="slts-client-marquee">
-    <div class="service-marquee-track animate-marquee-right">
-      <span class="service-marquee-item">Custom Solutions</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Experienced Team</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Proven Success</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Commitment to Excellence</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Custom Solutions</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Experienced Team</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Proven Success</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Commitment to Excellence</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Custom Solutions</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Experienced Team</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Proven Success</span><span class="service-marquee-separator">✦</span>
-      <span class="service-marquee-item">Commitment to Excellence</span><span class="service-marquee-separator">✦</span>
-    </div>
-  </div>
+  
 
   <!-- WHY PARTNER — STATIC GREEN, NO ANIMATION -->
   <section class="slts-premium-section why-partner-section relative z-10 overflow-hidden" id="why-partner">
     <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[300px] sm:w-[500px] lg:w-[600px] h-[200px] sm:h-[300px] bg-white/5 rounded-full blur-[100px] sm:blur-[140px] pointer-events-none z-0"></div>
-    <div class="site-container">
+    <div class="site-container relative z-10">
       <div class="why-partner-shell">
         <div class="why-partner-copy">
           <h2>Why Partner with <span>SLTS Labs?</span></h2>
@@ -1106,12 +2905,7 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
   </section>
 
   <!-- TRANSITION MARQUEE -->
-  <div aria-label="SLTS Labs capabilities" class="slts-transition-marquee">
-    <div class="slts-transition-track">
-      <span>MARKETING</span><b>✦</b><span>COMMUNITY</span><b>✦</b><span>GROWTH</span><b>✦</b><span>STRATEGY</span><b>✦</b><span>EXECUTION</span><b>✦</b>
-      <span>MARKETING</span><b>✦</b><span>COMMUNITY</span><b>✦</b><span>GROWTH</span><b>✦</b><span>STRATEGY</span><b>✦</b><span>EXECUTION</span><b>✦</b>
-    </div>
-  </div>
+  
 
   <!-- TESTIMONIALS -->
   <section aria-labelledby="testimonials-heading" class="slts-testimonials-section" id="testimonials">
@@ -1157,19 +2951,19 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
 
   <!-- IMAGE PROJECT MARQUEE -->
   <section class="scroll-reveal relative z-10 py-8 overflow-hidden bg-transparent">
-    <p class="text-center text-xs sm:text-sm font-semibold text-[#a3e635]/60 uppercase tracking-[0.2em] mb-6">WE WORK WITH LEADING WEB3 PROJECTS LIKE</p>
+    <p class="text-center text-xs sm:text-sm font-semibold text-gray-400 uppercase tracking-[0.2em] mb-6">WE WORK WITH LEADING WEB3 PROJECTS LIKE</p>
     <div class="relative w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)] mx-auto overflow-hidden flex items-center rounded-full border border-white/10 bg-white/[0.025] py-4 sm:py-5">
       <div class="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[#0a080e] to-transparent z-10 pointer-events-none"></div>
       <div class="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[#0a080e] to-transparent z-10 pointer-events-none"></div>
       <div class="animate-marquee flex items-center shrink-0 gap-12 sm:gap-20 pr-12 sm:pr-20">
         <img alt="StarryNift Logo" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="sf.png"/>
         <img alt="Crypto Unicorns Logo" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="culogo.svg"/>
-        <img alt="BlockAir Logo" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="blockair.svg"/>
+        <img alt="BlockAir Logo" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="blockair.svg" onerror="this.remove()"/>
         <img alt="GoldRush Logo" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="goldrush.svg"/>
         <img alt="Project Logo" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="logo.svg"/>
         <img alt="" aria-hidden="true" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="sf.png"/>
         <img alt="" aria-hidden="true" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="culogo.svg"/>
-        <img alt="" aria-hidden="true" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="blockair.svg"/>
+        <img alt="" aria-hidden="true" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="blockair.svg" onerror="this.remove()"/>
         <img alt="" aria-hidden="true" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="goldrush.svg"/>
         <img alt="" aria-hidden="true" class="h-6 sm:h-8 w-auto object-contain opacity-50 brightness-200 contrast-200 hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="logo.svg"/>
       </div>
@@ -1284,7 +3078,7 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
     initScrollObserver();
   }
 
-  window.addEventListener('load',()=>setTimeout(dismissLoader,1800),{once:true});
+  window.addEventListener('load',()=>setTimeout(dismissLoader,1700),{once:true});
   setTimeout(dismissLoader,4000);
 })();
 </script>
@@ -1315,6 +3109,7 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
     const target=parseInt(counter.getAttribute('data-target'),10);
     const prefix=counter.getAttribute('data-prefix')||'';
     const suffix=counter.getAttribute('data-suffix')||'';
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){counter.textContent=`${prefix}${target.toLocaleString()}${suffix}`;return;}
     const start=performance.now();
     function update(now){
       const elapsed=now-start;
@@ -1336,33 +3131,7 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
 })();
 </script>
 
-<script>
-/* About stats counter fill — Why Partner animations removed entirely */
-(function(){
-  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const about=document.querySelector('#about');
 
-  function updateAbout(){
-    if(!about||reduce) return;
-    about.querySelectorAll('.stat-counter').forEach(el=>{
-      const r=el.getBoundingClientRect();
-      const vh=window.innerHeight||document.documentElement.clientHeight;
-      const progress=Math.max(0,Math.min(1,(vh*0.88-r.top)/(vh*0.55)));
-      el.style.setProperty('--about-fill',(progress*100)+'%');
-    });
-  }
-
-  let ticking=false;
-  function onScroll(){
-    if(ticking) return;
-    ticking=true;
-    requestAnimationFrame(()=>{updateAbout();ticking=false;});
-  }
-  window.addEventListener('scroll',onScroll,{passive:true});
-  window.addEventListener('resize',updateAbout,{passive:true});
-  updateAbout();
-})();
-</script>
 
 <script>
 (function(){
@@ -1451,5 +3220,48 @@ header .glass-nav>a img{transform:scale(2.0);transform-origin:left center}
 })();
 </script>
 
+
+
+<script>
+(function(){
+  function tag(sel,dir,delay,step){
+    document.querySelectorAll(sel).forEach((el,i)=>{
+      el.classList.add('rv','rv-'+dir);
+      const d=(delay||0)+(step?i*step:0);
+      if(d) el.style.setProperty('--rv-d',d+'ms');
+    });
+  }
+  function init(){
+    // About: copy slides in from the left, stat cards rise one by one
+    tag('#about .grid > div:first-child','left');
+    tag('#about .about-stat-card','up',100,110);
+    // Services
+    tag('#services .site-container > div:first-child','up');
+    tag('#services .slts-reference-selector','up',120);
+    tag('#services .slts-reference-panel','up',220);
+    // Proof of work
+    tag('#pow-section-header','up');
+    tag('#proof-of-work .slts-proof-selector','up',120);
+    tag('#proof-of-work .slts-proof-panel','up',220);
+    // Why partner
+    tag('#why-partner .why-partner-copy h2','left');
+    tag('#why-partner .premium-lead','left',120);
+    tag('#why-partner .why-points article','up',200,110);
+    tag('#why-partner .why-partner-visual','right',150);
+    // Testimonials
+    tag('#testimonials .slts-testimonials-heading','up');
+    tag('#testimonials .slts-testimonial-lane','up',150,150);
+    // Contact + footer
+    tag('#contact .contact-copy','left');
+    tag('#contact .contact-options','right',150);
+    tag('.slts-footer-shell','up');
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target);} });
+    },{threshold:0.12,rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
+})();
+</script>
 </body>
 </html>
